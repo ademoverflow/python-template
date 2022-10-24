@@ -1,4 +1,4 @@
-# Python template
+# python-template
 
 ## Service description
 
