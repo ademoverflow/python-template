@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.0.0-experimental
 
 # ===== BASE 
-FROM --platform=linux/amd64 python:3.8-slim AS base
+FROM --platform=linux/amd64 python:3.10-slim AS base
 
 ENV PYTHONUNBUFFERED=true \
     POETRY_HOME="/opt/poetry" \
