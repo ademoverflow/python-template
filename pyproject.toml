@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "python-template"
 version = "1.0.0"
-description = ""
+description = "description-here"
 authors = ["Adem Usta <adem@adem.sh>"]
 packages = [{include = "app"}]
 
