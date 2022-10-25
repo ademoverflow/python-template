@@ -20,7 +20,7 @@ do
     if [[ $file == *"repo-init.sh"* ]]; then
         continue
     fi
-    sed -i 's/python-template/my-awesome-service/g' $file
+    sed -i "s/python-template/${project_name}/g" $file
 done
 
 echo "Provide a simple description: "
