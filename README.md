@@ -23,7 +23,7 @@ As the template is configured for `python3.8`, you need to install it.
 __Note for Mac users__: 
 
 - You can install and use `pyenv` to install several versions of Python.
-- You just need to specify which version of python you want to run within your current shell with `pyenv shell 3.8.13` for example (you need to install it first).
+- You just need to specify which version of python you want to run within your current shell with `pyenv shell 3.10.7` for example (you need to install it first).
 
 ### Poetry
 
