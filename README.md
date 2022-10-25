@@ -56,3 +56,12 @@ For more details on this feature, go check Docker documentation.
 ## Development
 
 Just code your app like you normally would.
+
+
+## Template usage
+
+This repository is a template.
+
+To use this template, you can simply create a new repository on GitHub and select the `python-template` template.
+
+Then, launch the script `scripts/repo-init.sh`, and your are good to go !
