@@ -1,8 +1,8 @@
-# python-template
+# my-awesome-service
 
 ## Service description
 
-TODO: fill with the description of your service.
+description-here
 
 ## Repository information
 
@@ -61,6 +61,6 @@ Just code your app like you normally would.
 
 - Clone this repository with the name of your service: `git clone <URL_OF_TEMPLATE_REPO> my-awesome-app
 - Delete the .git folder and launch `git init` to start a new git repository on the folder.
-- Search and replace `python-template` by your service name.
+- Search and replace `my-awesome-service` by your service name.
 - Add the adequate service description on the README file, in `Service description`.
 - Enjoy !
