@@ -33,3 +33,6 @@ do
     fi
     sed -i "s/description-here/${user_description}/g" $file
 done
+
+result=$(sed '/^## Template usage$/Q' README.md); echo $result > README.md
+rm ./scripts/repo-init.sh
