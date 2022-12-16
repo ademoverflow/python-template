@@ -57,7 +57,6 @@ For more details on this feature, go check Docker documentation.
 
 Just code your app like you normally would.
 
-
 ## Template usage
 
 This repository is a template.
