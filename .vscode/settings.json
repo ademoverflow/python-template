@@ -2,6 +2,11 @@
     "python.defaultInterpreterPath": ".venv/bin/python",
     "python.formatting.provider": "black",
     "editor.formatOnSave": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "mypy",
+    "isort.path": [
+        "isort"
+    ],
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.linting.lintOnSave": true,
