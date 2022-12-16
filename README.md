@@ -11,7 +11,7 @@ This repository aims to facilitate the development of a python microservice, pac
 It contains the adequate tooling for:
 - Unit testing and code coverage (with `pytest` and `coverage` dependencies)
 - Code formatting with `black` and linting with `pylint`
-- Strong type checking with `pyright`
+- Strong type checking with `mypy`
 
 All the configuration for these tools are located directly in [pyproject.toml](./pyproject.toml), you don't need dot files for this.
 
