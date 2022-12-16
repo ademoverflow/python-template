@@ -34,5 +34,9 @@ do
     sed -i "s/description-here/${user_description}/g" $file
 done
 
-result=$(sed '/^## Template usage$/Q' README.md); echo $result > README.md
+# Remove last section of README.
+sed -i '/## Template usage/,$d' README.md
+sed -i '/## Template usage/d' README.md
+sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' README.md
+
 rm ./scripts/repo-init.sh
