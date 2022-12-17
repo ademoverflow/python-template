@@ -1,0 +1,17 @@
+name: "New Template Version"
+
+on:
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  check-template-version:
+    if: startsWith(github.head_ref, 'release/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Check Template Version Matching
+        run: |
+          ./scripts/check-template-version.sh ${{ github.head_ref }}
