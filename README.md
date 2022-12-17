@@ -29,7 +29,9 @@ __Note for Mac users__:
 
 Poetry is the most powerful python package manager of the ecosystem.
 
-You can install it as a python package globally for your version of python, with pip: `python -m pip install poetry`
+The current version used in this project is `1.3.1`
+
+Check the documentation for more info on how to install it: [Poetry Documentation](https://python-poetry.org/docs/#installation)
 
 ### Docker
 
