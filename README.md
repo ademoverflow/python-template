@@ -10,7 +10,7 @@ This repository aims to facilitate the development of a python microservice, pac
 
 It contains the adequate tooling for:
 - Unit testing and code coverage (with `pytest` and `coverage` dependencies)
-- Code formatting with `black` and linting with `pylint`
+- Code formatting with `black` + `isort` and linting with `pylint`
 - Strong type checking with `mypy`
 
 All the configuration for these tools are located directly in [pyproject.toml](./pyproject.toml), you don't need dot files for this.
@@ -18,7 +18,7 @@ All the configuration for these tools are located directly in [pyproject.toml](.
 ## What you need on your machine
 
 ### Python
-As the template is configured for `python3.8`, you need to install it. 
+As the template is configured for `python3.10`, you need to install it. 
 
 __Note for Mac users__: 
 
@@ -39,6 +39,7 @@ __Note__: if you want to use private repositories in your dependencies, you need
 
 - `ssh-add -K` to "copy" your ssh keys on the docker environment (run it once)
 - Run each build with `DOCKER_BUILDKIT=1` shell variable.
+- Note: for this, you need to add at the top of your Dockerfile `# syntax=docker/dockerfile:1.0.0-experimental`
 
 __Example__:
 
@@ -55,7 +56,15 @@ For more details on this feature, go check Docker documentation.
 
 ## Development
 
-Just code your app like you normally would.
+For local development, you need to install your dependencies locally with `poetry`.
+
+Just run `poetry install` and it will create a virtualenv located in your project directory, in `.venv` folder.
+
+To activate your environment, just use `poetry shell`, and then your app can be run with `python -m app`.
+
+If you want to directly launch your app without activating your virtualenv manually, you can use `poetry run python -m app`.
+
+And, TADA :tada: ! Just code your app like you normally would.
 
 ## Template usage
 
