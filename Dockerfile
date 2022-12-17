@@ -25,7 +25,7 @@ ENV POETRY_HOME="/opt/poetry" \
 
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-ENV POETRY_VERSION=1.2.2
+ENV POETRY_VERSION=1.3.1
 
 RUN apt-get update && \
     apt-get install -y curl
