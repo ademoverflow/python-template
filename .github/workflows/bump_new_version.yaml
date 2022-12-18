@@ -11,8 +11,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Generate Changelog
         run: |
-          wget -O archive.tar.gz https://github.com/git-chglog/git-chglog/releases/download/v0.15.1/git-chglog_0.15.1_linux_amd64.tar.gz
-          tar -xf archive.tar.gz
-          ./git-chglog
+          wget -q -O archive.tar.gz https://github.com/git-chglog/git-chglog/releases/download/v0.15.1/git-chglog_0.15.1_linux_amd64.tar.gz
+          tar -xf archive.tar.gz git-chglog
+          ./git-chglog --output CHANGELOG.md ${{ github.ref_name }}
+      - name: Generate Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG.md
