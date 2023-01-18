@@ -1,4 +1,9 @@
 .venv
 __pycache__
 .pytest_cache
+.mypy_cache
 .coverage
+.env
+docs/build
+docs/source/python_template*
+dist/

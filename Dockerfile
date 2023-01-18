@@ -1,4 +1,3 @@
-# --------------------------------- #
 # ---------- Base target ---------- #
 # --------------------------------- #
 # Content:
@@ -9,7 +8,18 @@
 FROM --platform=linux/amd64 python:3.10-slim AS base
 
 ENV PYTHONUNBUFFERED=true
-WORKDIR /code
+ENV CODE_DIR=/home/ademus/code
+
+ENV USERNAME=ademus
+ENV GROUP_NAME=ademus
+
+ARG USER_UID=$USER_UID
+ARG USER_GID=$USER_GID
+
+RUN groupadd -g ${USER_GID} ${GROUP_NAME}
+RUN adduser -uid ${USER_UID} -gid ${USER_GID} ${USERNAME}
+
+WORKDIR ${CODE_DIR}
 
 # --------------------------------- #
 # -------- Builder target --------- #
@@ -25,39 +35,48 @@ ENV POETRY_HOME="/opt/poetry" \
 
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-ENV POETRY_VERSION=1.3.1
+ENV POETRY_VERSION=1.3.2
 
 RUN apt-get update && \
-    apt-get install -y curl
+    apt-get install -y curl git
 
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
-COPY pyproject.toml /code/pyproject.toml
-COPY poetry.toml /code/poetry.toml
-COPY poetry.lock /code/poetry.lock
+COPY pyproject.toml ${CODE_DIR}/pyproject.toml
+COPY poetry.toml ${CODE_DIR}/poetry.toml
+COPY poetry.lock ${CODE_DIR}/code/poetry.lock
 
-RUN poetry export --output /code/requirements.txt 
+# Note: this file generation is ONLY used in production target,
+# as production is as light as possible (only python and pip, no poetry).
+RUN poetry export --output ${CODE_DIR}/requirements.txt 
 
 # --------------------------------- #
 # ------ Development target ------- #
 # --------------------------------- #
 # Content:
 #  - Installs all dependencies using poetry
-#  - Copies entire code base (app, tests and scripts)
+#  - Copies entire code base (python_template, tests and scripts)
 
 FROM builder as development
 
-RUN poetry config virtualenvs.create false --local
+RUN apt-get install -y make vim nano sudo
 RUN poetry install --no-root
 
-COPY app /code/app
-COPY tests /code/tests
-COPY scripts /code/scripts
+COPY src ${CODE_DIR}/src
+COPY tests ${CODE_DIR}/tests
+COPY stubs ${CODE_DIR}/stubs
+COPY README.md ${CODE_DIR}/README.md
 
-# This second poetry install commands only installs app as a package
+# This second poetry install commands only installs python_template as a package
 RUN poetry install 
 
-CMD ["/code/scripts/code-quality.sh"]
+# A small hack to let all the users install python packages.
+RUN chmod -R 777 /usr/local/
+
+# Let the user use sudo without password prompt
+RUN adduser ${USERNAME} sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+USER ${USERNAME}
 
 # --------------------------------- #
 # ------- Production target ------- #
@@ -69,9 +88,11 @@ CMD ["/code/scripts/code-quality.sh"]
 FROM base AS production
 
 RUN pip install --upgrade pip
-COPY --from=builder /code/requirements.txt /code/requirements.txt
-RUN pip install -r /code/requirements.txt
+COPY --from=builder ${CODE_DIR}/requirements.txt ${CODE_DIR}/requirements.txt
+RUN pip install -r ${CODE_DIR}/requirements.txt
 
-COPY app /code/app
+COPY src ${CODE_DIR}/src
 
-CMD ["python",  "-m", "app"]
+USER ${USERNAME}
+
+CMD ["python", "-m", "python_template"]
