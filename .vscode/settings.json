@@ -1,18 +1,18 @@
 {
-    "python.defaultInterpreterPath": ".venv/bin/python",
     "python.formatting.provider": "black",
     "editor.formatOnSave": true,
     "python.linting.mypyEnabled": true,
     "python.linting.mypyPath": "mypy",
-    "isort.path": [
-        "isort"
-    ],
-    "python.linting.enabled": true,
+    "isort.check": true,
+    "isort.logLevel": "warn",
+    "isort.severity": {
+        "W": "Warning",
+        "E": "Error"
+    },
     "python.linting.pylintEnabled": true,
     "python.linting.lintOnSave": true,
     "python.linting.pylintPath": "pylint",
-    "python.linting.pylintArgs": [
-        "--init-hook",
-        "import sys; sysepath.append('./app')"
-    ]
+    "files.exclude": {
+        "**/__pycache__": true
+    }
 }

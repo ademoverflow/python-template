@@ -104,4 +104,14 @@ Indeed, some rules cannot be launched inside the container, like `build` (which 
 
 This repository is a template.
 
-To use this template, just create your github repository and select this template.
+To use this template:
+
+- Clone it and launch `repo-init.sh` script:
+
+```bash
+git clone "ssh://<username>@gerrit.ademus.lan:29418/ademus/python-template" <my_awesome_app> && cd <my_awesome_app> && ./scripts/repo-init.sh
+```
+
+Replace `<username>` by your gerrit name and <my_awesome_app> with the name of your brand new service / library.
+
+This script will ask you some project configuration, and that´s it !

@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  python-template:
+    image: python-template:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+      args:
+        USER_UID: ${USER_UID}
+        USER_GID: ${USER_GID}
+    environment:
+      - EXAMPLE_VAR="100"
+      - TZ=${TZ}
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    volumes:
+      - ~/.ssh:/home/ademus/.ssh:ro # To push changes within the container.
+      - ./:/home/ademus/code

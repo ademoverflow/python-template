@@ -1,0 +1,19 @@
+{
+	"name": "python-template dev container",
+	// We run this command to dynamically set environment variables that docker-compose
+	// uses in its configuration before running Docker containers.
+	"initializeCommand": "make _env",
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "python-template",
+	"workspaceFolder": "/home/ademus/code",
+	"settings": {},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"ms-python.isort",
+		"ms-azuretools.vscode-docker",
+		"njpwerner.autodocstring",
+		"bungcip.better-toml"
+	]
+}
