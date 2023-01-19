@@ -28,16 +28,16 @@ setup: ## Nothing for now
 .PHONY: setup
 
 ifeq ($(INSIDE_DOCKER_CONTAINER), false)
-_env:
+generate_env:
 	echo "USER_UID=$$(id -u)" > .env
 	echo "USER_GID=$$(id -g)" >> .env
 	echo "TZ=$$(timedatectl show -p Timezone | cut -d= -f2)" >> .env
 
-build: _env ## Build your container (not available when inside the container)
+build: generate_env ## Build your container (not available when inside the container)
 	${COMPOSE} build ${PACKAGE_NAME}
 .PHONY: build
 
-dev: _env ## Develop your python_template within the container (not available when inside the container)
+dev: generate_env ## Develop your python_template within the container (not available when inside the container)
 	${COMPOSE} down
 	${COMPOSE} run --rm -it ${PACKAGE_NAME} bash
 .PHONY: dev
