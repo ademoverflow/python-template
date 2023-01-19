@@ -2,10 +2,10 @@ name: Branches Checks
 
 on:
   pull_request:
-    branches: [master,develop]
+    branches: [develop]
 
 jobs:
-  commitlint:
+  commits-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
