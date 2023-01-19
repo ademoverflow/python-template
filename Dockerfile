@@ -59,6 +59,8 @@ RUN poetry export --output ${CODE_DIR}/requirements.txt
 
 FROM builder as development
 
+ENV INSIDE_CONTAINER=1
+
 RUN apt-get install -y make vim nano sudo
 RUN poetry install --no-root
 

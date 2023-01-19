@@ -24,11 +24,12 @@ help: ## Display commands help
 	@grep -E '^[a-zA-Z][a-zA-Z_-]+:.*?## .*$$' Makefile | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 .PHONY: help
 
-setup: ## Nothing for now
-.PHONY: setup
+############################################
+# -------- Outside container rules ------- #
+############################################
 
 ifeq ($(INSIDE_DOCKER_CONTAINER), false)
-generate_env:
+generate_env: ## Generate .env file for docker image (not available when inside the container)
 	echo "USER_UID=$$(id -u)" > .env
 	echo "USER_GID=$$(id -g)" >> .env
 	echo "TZ=$$(timedatectl show -p Timezone | cut -d= -f2)" >> .env
@@ -43,41 +44,88 @@ dev: generate_env ## Develop your python_template within the container (not avai
 .PHONY: dev
 endif
 
-check_format: ## Checks for good formatting (implemented with black and isort)
-	echo "Checking format for python_template and tests ..."
-	@make _check_format_code
-	@make _check_format_tests
+############################################
+# -------------- Formatting -------------- #
+############################################
+
+check_format: ## Checks format for all codebase.
+	@make check_format_code
+	@make check_format_tests
 .PHONY: check_format
 
-_check_format_code: ## Checks for good formatting for python_template (with black and isort)
+check_format_code: ## Checks format for python_template (with black and isort)
 	echo "Format check for python_template  ..."
 	$(RUN) ${BLACK} src/python_template
 	$(RUN) ${ISORT} src/python_template
-.PHONY: _check_format_code
+.PHONY: check_format_code
 
-_check_format_tests: ## Checks for good formatting for tests (with black and isort)
+check_format_tests: ## Checks format for tests (with black and isort)
 	echo "Format check for tests  ..."
 	$(RUN) ${BLACK} tests
 	$(RUN) ${ISORT} tests
-.PHONY: _check_format_tests
+.PHONY: check_format_tests
 
-check_linting: ## Checks for python code linting (implemented with pylint and mypy)
-	echo "Checking linting and types for python_template and tests ..."
-	@make _check_linting_code
-	@make _check_linting_tests
+############################################
+# --------------- Linting ---------------- #
+############################################
+
+check_linting: ## Checks linting for all codebase.
+	@make check_linting_code
+	@make check_linting_tests
 .PHONY: check_linting
 
-_check_linting_code: ## Checks for good linting for python_template (with pylint and mypy)
-	echo "Checking linting and types for python_template ..."
+check_linting_code: ## Checks linting for python_template (with pylint)
+	echo "Checking linting for python_template ..."
 	$(RUN) ${LINT} src/python_template
-	$(RUN) ${TYPE_CHECK} src/python_template
-.PHONY: _check_linting_code
+.PHONY: check_linting_code
 
-_check_linting_tests: ## Checks for good linting for tests (with pylint and mypy)
-	echo "Checking linting and types for python_template ..."
+check_linting_tests: ## Checks linting for tests (with pylint)
+	echo "Checking linting for tests ..."
 	$(RUN) ${LINT} tests
+.PHONY: check_linting_tests
+
+############################################
+# ----------- Types Checking ------------- #
+############################################
+
+check_typing: ## Checks typing for all codebase.
+	@make check_typing_code
+	@make check_typing_tests
+.PHONY: check_typing
+
+check_typing_code: ## Checks for types for python_template (with mypy)
+	echo "Checking types for python_template ..."
+	$(RUN) ${TYPE_CHECK} src/python_template
+.PHONY: check_typing_code
+
+check_typing_tests: ## Checks for types for tests (with mypy)
+	echo "Checking types for tests ..."
 	$(RUN) ${TYPE_CHECK} tests
-.PHONY: _check_format_tests
+.PHONY: check_typing_tests
+
+############################################
+# -------------- Testing ----------------- #
+############################################
+
+unit_tests: ## Run tests (with pytest)
+	echo "Running unit tests with coverage report ..."
+	$(RUN) bash -c "${UNIT_TESTS}"
+.PHONY: unit_tests
+
+integration_tests: ## Run integration tests
+	echo "Running integration tests ..."
+.PHONY: integration_tests
+
+############################################
+# -------------- Global ------------------ #
+############################################
+
+code_quality: ## Runs code quality checkers
+	@make check_format
+	@make check_linting
+	@make check_typing
+.PHONY: code_quality
+
 
 docs: ## Generate docs in html format (with sphinx)
 	echo "Generating docs ..."
@@ -85,23 +133,6 @@ docs: ## Generate docs in html format (with sphinx)
 	sphinx-apidoc --force --no-headings --separate --maxdepth 1 --output-dir docs/source/ src/python_template
 	cd docs && make clean && make html && cd ..
 .PHONY: docs
-
-unit_test: ## Run tests (with pytest)
-	echo "Running tests with coverage report ..."
-	$(RUN) bash -c "${UNIT_TESTS}"
-.PHONY: unit_test
-
-integ_test: ## Nothing for now
-.PHONY: integ_test
-
-nightly_test: ## Nothing for now
-.PHONY: nightly_test
-
-post_test: ## Nothing for now
-.PHONY: post_test
-
-post_master: ## Nothing for now
-.PHONY: post_master
 
 clean: ## Clean all generated files
 	rm -rf .mypy_cache
