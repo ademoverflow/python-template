@@ -12,3 +12,13 @@ jobs:
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v5
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Image
+        run: make build
+      - name: Run checkers
+        run: make code_quality
+      - name: Run unit tests
+        run: make unit_tests
