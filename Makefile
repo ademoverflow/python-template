@@ -2,7 +2,7 @@
 
 PACKAGE_NAME := python-template
 
-COMPOSE := docker compose
+COMPOSE := docker-compose
 ifeq (${INSIDE_CONTAINER}, 1)
 	INSIDE_DOCKER_CONTAINER = true
 	RUN :=
