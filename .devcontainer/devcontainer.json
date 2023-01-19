@@ -2,7 +2,7 @@
 	"name": "python-template dev container",
 	// We run this command to dynamically set environment variables that docker-compose
 	// uses in its configuration before running Docker containers.
-	"initializeCommand": "make _env",
+	"initializeCommand": "make generate_env",
 	"dockerComposeFile": "../docker-compose.yml",
 	"service": "python-template",
 	"workspaceFolder": "/home/ademus/code",
