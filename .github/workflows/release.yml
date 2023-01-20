@@ -13,3 +13,5 @@ jobs:
         run: make build
       - name: Run publish
         run: make next_release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

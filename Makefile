@@ -42,6 +42,13 @@ dev: generate_env ## Develop your python_template within the container (not avai
 	${COMPOSE} down
 	${COMPOSE} run --rm -it ${PACKAGE_NAME} bash
 .PHONY: dev
+
+next_release: ## Generate next release and publish it to GitHub Releases (not available when inside the container)
+	VERSION=$(semantic-release print-version)
+	echo "Publishing next release ${VERSION} ..."
+	${COMPOSE} run --rm -e GH_TOKEN=${GITHUB_TOKEN} ${PACKAGE_NAME} semantic-release publish
+.PHONY: next_release
+
 endif
 
 ############################################
@@ -132,12 +139,6 @@ docs: ## Generate docs in html format (with sphinx)
 	sphinx-apidoc --force --no-headings --separate --maxdepth 1 --output-dir docs/source/ src/python_template
 	cd docs && make clean && make html && cd ..
 .PHONY: docs
-
-next_release: ## Generate next release and publish it to GitHub Releases
-	VERSION=$(semantic-release print-version)
-	echo "Publishing next release ${VERSION} ..."
-	$(RUN) semantic-release publish
-.PHONY: next_release
 
 clean: ## Clean all generated files
 	rm -rf .mypy_cache
