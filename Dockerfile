@@ -66,6 +66,7 @@ RUN poetry install --no-root
 
 COPY src ${CODE_DIR}/src
 COPY tests ${CODE_DIR}/tests
+COPY scripts ${CODE_DIR}/scripts
 COPY stubs ${CODE_DIR}/stubs
 COPY README.md ${CODE_DIR}/README.md
 
