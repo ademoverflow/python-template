@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.5.1 (2023-01-20)
+### Fix
+* No errors in code quality when no tests files ([`5509f01`](https://github.com/ademoverflow/python-template/commit/5509f011f99040573a0a9da9d0d34e708b603768))
+
 ## v1.5.0 (2023-01-20)
 ### Feature
 * Container hostname specified as project name ([`19db416`](https://github.com/ademoverflow/python-template/commit/19db41668e2a2c2253efb7c2d069137dae4a49b5))
