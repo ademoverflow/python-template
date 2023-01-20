@@ -17,6 +17,7 @@ ISORT := ${POETRY} run isort --check
 LINT := ${POETRY} run pylint
 TYPE_CHECK := ${POETRY} run mypy
 UNIT_TESTS := ${POETRY} run coverage run -m pytest && ${POETRY} run coverage report -m
+N_TESTS_FILES=$(shell find tests/ -type f -not -name '.keep' -not -path '*/__pycache__/*' | wc -l)
 
 default: help;
 
@@ -113,8 +114,12 @@ check_typing_tests: ## Checks for types for tests (with mypy)
 ############################################
 
 unit_tests: ## Run tests (with pytest)
+ifeq (${N_TESTS_FILES}, 0)
+	echo "No tests to run."
+else
 	echo "Running unit tests with coverage report ..."
 	$(RUN) bash -c "${UNIT_TESTS}"
+endif
 .PHONY: unit_tests
 
 integration_tests: ## Run integration tests
