@@ -1,0 +1,13 @@
+name: Next release
+
+on: [workflow_dispatch]
+
+jobs:
+  publish-next-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Image
+        run: make build
+      - name: Run publish
+        run: make next_release

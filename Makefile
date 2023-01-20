@@ -126,13 +126,18 @@ code_quality: ## Runs code quality checkers
 	@make check_typing
 .PHONY: code_quality
 
-
 docs: ## Generate docs in html format (with sphinx)
 	echo "Generating docs ..."
 	rm -f docs/source/python_template*
 	sphinx-apidoc --force --no-headings --separate --maxdepth 1 --output-dir docs/source/ src/python_template
 	cd docs && make clean && make html && cd ..
 .PHONY: docs
+
+next_release: ## Generate next release and publish it to GitHub Releases
+	VERSION=$(semantic-release print-version)
+	echo "Publishing next release ${VERSION} ..."
+	$(RUN) semantic-release publish
+.PHONY: next_release
 
 clean: ## Clean all generated files
 	rm -rf .mypy_cache
