@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.5.0 (2023-01-20)
+### Feature
+* Container hostname specified as project name ([`19db416`](https://github.com/ademoverflow/python-template/commit/19db41668e2a2c2253efb7c2d069137dae4a49b5))
+
 ## v1.4.0 (2023-01-20)
 ### Feature
 * Activate bash autocomplete in dev container ([`0c585ff`](https://github.com/ademoverflow/python-template/commit/0c585ffceefa91a02c4cf5549c2c2a58abd2cf83))
