@@ -57,6 +57,7 @@ mkdir -p src/$package_name
 mv src/__init__.py src/$package_name/__init__.py
 
 rm -rf tests/*
+touch tests/.keep
 
 # Write template version in a .TEMPLATE_VERSION file
 grep -m 1 "version = " pyproject.toml | sed 's/.*"\(.*\)".*/\1/' > .TEMPLATE_VERSION
@@ -74,3 +75,6 @@ EOL
 
 
 rm -f ./scripts/repo-init.sh
+
+git add --all
+git commit -m "chore: cleanup for template"
