@@ -13,7 +13,7 @@ else
 fi
 echo "Project name will be ${project_name}"
 
-files=$(find .  -type f -not -path './.venv/*' -not -path './.git/*' -exec grep -l "python-template" {} \;)
+files=$(find . -type f -not -path './.git/*' -exec grep -l "python-template" {} \;)
 for file in $files
 do
     if [[ $file == *"repo-init.sh"* ]]; then
@@ -40,7 +40,7 @@ sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' README.md
 # Renaming 'python_template' to project_name, replacing '-' with '_' (as the folder will be a python package).
 package_name=$(echo "$project_name" | sed 's/-/_/g')
 
-files=$(find .  -type f -not -path './.venv/*' -not -path './.git/*' -exec grep -l "python_template" {} \;)
+files=$(find . -type f -not -path './.git/*' -exec grep -l "python_template" {} \;)
 for file in $files
 do
     if [[ $file == *"repo-init.sh"* ]]; then
@@ -49,8 +49,6 @@ do
     sed -i "s/python_template/${package_name}/g" $file
 done
 
-echo "Removing all template scripts ..."
-rm -rf ./scripts
 
 echo "Removing template codebase ..."
 mv src/python_template/__init__.py src/__init__.py # Keep the only code we need
@@ -65,22 +63,14 @@ grep -m 1 "version = " pyproject.toml | sed 's/.*"\(.*\)".*/\1/' > .TEMPLATE_VER
 # Reset pyproject.toml version:
 sed -i '0,/version = /{s/version = .*/version = "0.0.0"/;}' pyproject.toml
 
-# Initiating git repository if user wants a git repository
-init_git_repository=""
-while [[ "$init_git_repository" != "yes" && "$init_git_repository" != "no" ]]; do
-  read -p "Do you need to initialize this project as a git repository ? (yes/no): "  init_git_repository
-  if [[ "$init_git_repository" != "yes" && "$init_git_repository" != "no" ]]; then
-    echo "Please answer with yes  or no."
-  fi
-done
+# Remove changelog
+rm -f CHANGELOG.md
+cat > CHANGELOG.md <<EOL
+# Changelog
 
-if [[ "${init_git_repository}" = "yes" ]]
-then
-    echo "Initializing git repository for ${project_name}"
-    git init
-    git add --all && git commit -m "feat: first commit for ${project_name}"
-else
-    echo "Git initialization for the project disabled."
-fi
+<!--next-version-placeholder-->
+
+EOL
 
 
+rm -f ./scripts/repo-init.sh
