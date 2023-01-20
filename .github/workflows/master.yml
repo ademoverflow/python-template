@@ -1,0 +1,26 @@
+name: Pre Release checks
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  commits-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v5
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Image
+        run: make build
+      - name: Run checkers
+        run: make code_quality
+      - name: Run unit tests
+        run: make unit_tests
+      - name: Run integration tests
+        run: make integration_tests
