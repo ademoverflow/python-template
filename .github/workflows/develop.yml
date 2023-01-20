@@ -1,4 +1,4 @@
-name: Branches Checks
+name: feature-branch-workflow
 
 on:
   pull_request:
@@ -16,9 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build Image
+      - name: build-image
         run: make build
-      - name: Run checkers
+      - name: run-code-quality
         run: make code_quality
-      - name: Run unit tests
+      - name: run-unit-tests
         run: make unit_tests
