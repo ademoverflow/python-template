@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v1.4.0 (2023-01-20)
+### Feature
+* Activate bash autocomplete in dev container ([`0c585ff`](https://github.com/ademoverflow/python-template/commit/0c585ffceefa91a02c4cf5549c2c2a58abd2cf83))
+* Make unit_tests exit with no errors if tests/ is empty ([`f88c2e3`](https://github.com/ademoverflow/python-template/commit/f88c2e3623850f9b232d56bed511e08da50e8573))
+* Commit all changes after repo-init + add .keep file in tests ([`272e8eb`](https://github.com/ademoverflow/python-template/commit/272e8ebb76aeddf5010b17b8fbd171868f373ef0))
+
 ## v1.3.0 (2023-01-20)
 ### Feature
 * Enhance repo-init script ([`0f20ba0`](https://github.com/ademoverflow/python-template/commit/0f20ba023db98be546d18d457d295b438cb08426))
