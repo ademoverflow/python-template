@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.3.0 (2023-01-20)
+### Feature
+* Enhance repo-init script ([`0f20ba0`](https://github.com/ademoverflow/python-template/commit/0f20ba023db98be546d18d457d295b438cb08426))
+
 ## v1.2.0 (2023-01-20)
 ### Feature
 * **continous delivery:** Add the ability to publish the next version ([`7c14b75`](https://github.com/ademoverflow/python-template/commit/7c14b7585ab74dad8cfa867eb5ed60feca3ddd65))
