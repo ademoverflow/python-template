@@ -12,6 +12,6 @@ jobs:
       - name: Build Image
         run: make build
       - name: Run publish
-        run: ./scripts/next-release.sh
+        run: make next_release
         env:
           GITHUB_TOKEN: ${{ github.token }}

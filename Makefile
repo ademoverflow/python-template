@@ -44,9 +44,7 @@ dev: generate_env ## Develop your python_template within the container (not avai
 .PHONY: dev
 
 next_release: ## Generate next release and publish it to GitHub Releases (not available when inside the container)
-	VERSION=$(semantic-release print-version)
-	echo "Publishing next release ${VERSION} ..."
-	${COMPOSE} run --rm -e GH_TOKEN=${GITHUB_TOKEN} ${PACKAGE_NAME} semantic-release publish
+	${COMPOSE} run --rm -e GH_TOKEN=${GITHUB_TOKEN} ${PACKAGE_NAME} bash -c "scripts/next-release.sh"
 .PHONY: next_release
 
 endif
