@@ -61,7 +61,7 @@ FROM builder as development
 
 ENV INSIDE_CONTAINER=1
 
-RUN apt-get install -y make vim nano sudo
+RUN apt-get install -y make vim nano sudo bash-completion
 RUN poetry install --no-root
 
 COPY src ${CODE_DIR}/src
