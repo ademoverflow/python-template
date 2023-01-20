@@ -66,9 +66,13 @@ check_format_code: ## Checks format for python_template (with black and isort)
 .PHONY: check_format_code
 
 check_format_tests: ## Checks format for tests (with black and isort)
+ifeq (${N_TESTS_FILES}, 0)
+	echo "No files to to check."
+else
 	echo "Format check for tests  ..."
 	$(RUN) ${BLACK} tests
 	$(RUN) ${ISORT} tests
+endif
 .PHONY: check_format_tests
 
 ############################################
@@ -86,8 +90,12 @@ check_linting_code: ## Checks linting for python_template (with pylint)
 .PHONY: check_linting_code
 
 check_linting_tests: ## Checks linting for tests (with pylint)
+ifeq (${N_TESTS_FILES}, 0)
+	echo "No files to to check."
+else
 	echo "Checking linting for tests ..."
 	$(RUN) ${LINT} tests
+endif
 .PHONY: check_linting_tests
 
 ############################################
@@ -105,8 +113,12 @@ check_typing_code: ## Checks for types for python_template (with mypy)
 .PHONY: check_typing_code
 
 check_typing_tests: ## Checks for types for tests (with mypy)
+ifeq (${N_TESTS_FILES}, 0)
+	echo "No files to to check."
+else
 	echo "Checking types for tests ..."
 	$(RUN) ${TYPE_CHECK} tests
+endif
 .PHONY: check_typing_tests
 
 ############################################
