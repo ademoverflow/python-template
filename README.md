@@ -100,6 +100,12 @@ It is developed for the CI/CD mostly, but it is also usable inside the container
 
 Indeed, some rules cannot be launched inside the container, like `build` (which builds the Docker image), so we disable the rule inside the Makefile.
 
+## GitHub Actions
+
+For workflows to work properly, you need to give some access to Actions:
+
+- In Settings / Actions / General -> Workflows permission, choose "Read and write permissions".
+
 ## Template usage
 
 This repository is a template.
