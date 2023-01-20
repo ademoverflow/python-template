@@ -12,6 +12,9 @@ jobs:
       - name: Build Image
         run: make build
       - name: Run publish
-        run: make next_release
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
+          make next_release
         env:
           GITHUB_TOKEN: ${{ github.token }}
