@@ -6,14 +6,16 @@
 	"dockerComposeFile": "../docker-compose.yml",
 	"service": "python-template",
 	"workspaceFolder": "/home/antipodestudios/code",
-	"settings": {},
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"ms-python.python",
-		"ms-python.vscode-pylance",
-		"ms-python.isort",
-		"ms-azuretools.vscode-docker",
-		"njpwerner.autodocstring",
-		"bungcip.better-toml"
-	]
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.isort",
+				"ms-azuretools.vscode-docker",
+				"njpwerner.autodocstring",
+				"tamasfe.even-better-toml"
+			]
+		}
+	}
 }
