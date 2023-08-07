@@ -46,7 +46,6 @@ Inside the Dockerfile you'll find two important stages `development` and `produc
 - `production`: minimal image that contains production code only.
 - `development`: contains all the tools for development.
 
-
 ## What you need on your machine
 
 ### For Visual Studio Code Users
@@ -65,7 +64,7 @@ When you open a project based on this repository, on vscode you just have to `Ct
 
 Vscode will restart, build your container, install on it vscode-server and some plugins, and .. Tada ! You are ready to code !
 
-__Note__: sometimes plugins does not start properly (example: isort fails to start because it needs python plugin to be ready, it's a race start condition issue). In this case, you just need to reload your vscode:
+**Note**: sometimes plugins does not start properly (example: isort fails to start because it needs python plugin to be ready, it's a race start condition issue). In this case, you just need to reload your vscode:
 
 `Ctrl+Shift+P` and type `Developer: Reload Window`.
 
@@ -89,8 +88,7 @@ If you are using an IDE that does not support developing inside a container, you
 
 You won't have autocompletion :(
 
-__Note__: if you manage to make it fully working within your IDE, feel free to add the adequate config and documentation here ! (And also in the template).
-
+**Note**: if you manage to make it fully working within your IDE, feel free to add the adequate config and documentation here ! (And also in the template).
 
 ## Makefile
 
@@ -109,7 +107,7 @@ To use this template:
 - Clone it and launch `repo-init.sh` script:
 
 ```bash
-git clone "ssh://<username>@gerrit.ademus.lan:29418/ademus/python-template" <my_awesome_app> && cd <my_awesome_app> && ./scripts/repo-init.sh
+git clone "ssh://<username>@gerrit.antipodestudios.lan:29418/antipodestudios/python-template" <my_awesome_app> && cd <my_awesome_app> && ./scripts/repo-init.sh
 ```
 
 Replace `<username>` by your gerrit name and <my_awesome_app> with the name of your brand new service / library.

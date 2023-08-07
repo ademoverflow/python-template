@@ -16,5 +16,5 @@ services:
       - TZ=${TZ}
     command: /bin/sh -c "while sleep 1000; do :; done"
     volumes:
-      - ~/.ssh:/home/ademus/.ssh:ro # To push changes within the container.
-      - ./:/home/ademus/code
+      - ~/.ssh:/home/antipodestudios/.ssh:ro # To push changes within the container.
+      - ./:/home/antipodestudios/code

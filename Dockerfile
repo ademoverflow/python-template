@@ -8,10 +8,10 @@
 FROM --platform=linux/amd64 python:3.10-slim AS base
 
 ENV PYTHONUNBUFFERED=true
-ENV CODE_DIR=/home/ademus/code
+ENV CODE_DIR=/home/antipodestudios/code
 
-ENV USERNAME=ademus
-ENV GROUP_NAME=ademus
+ENV USERNAME=antipodestudios
+ENV GROUP_NAME=antipodestudios
 
 ARG USER_UID=$USER_UID
 ARG USER_GID=$USER_GID
