@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.0 (2023-08-07)
+
+### Feature
+
+* Use new devcontainer schema ([`2c60728`](https://github.com/antipodestudios/python-template/commit/2c60728926631b332718e91c25a940e4e4910c75))
+
+### Fix
+
+* Remove personal brand from codebase ([`382c715`](https://github.com/antipodestudios/python-template/commit/382c715c8f2ff92a09a9187b9206a7f8cb1e2309))
+
 ## v1.5.2 (2023-08-07)
 
 ### Fix
