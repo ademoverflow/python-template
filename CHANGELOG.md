@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v1.5.2 (2023-08-07)
+
+### Fix
+
+* Modify names from personal template ([`bbab440`](https://github.com/antipodestudios/python-template/commit/bbab440319b1673e8e0c0b59e826017fade61be2))
+
 ## v1.5.1 (2023-01-20)
 
 ### Fix
