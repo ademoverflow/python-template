@@ -4,7 +4,7 @@
 import python_template
 
 project = "python-template"
-copyright = "AdemOverflow, All rights reserved"
+copyright = "Antipode Studios, All rights reserved"
 author = "Adem Usta"
 release = python_template.__version__
 version = release
