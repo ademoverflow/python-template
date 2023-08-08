@@ -2,19 +2,14 @@ version: '3'
 
 services:
   python-template:
-    image: python-template:latest
+    image: python-template:production
     hostname: python-template
     build:
       context: .
+      ssh:
+        - default
       dockerfile: Dockerfile
-      target: development
+      target: production
       args:
         USER_UID: ${USER_UID}
         USER_GID: ${USER_GID}
-    environment:
-      - EXAMPLE_VAR="100"
-      - TZ=${TZ}
-    command: /bin/sh -c "while sleep 1000; do :; done"
-    volumes:
-      - ~/.ssh:/home/antipodestudios/.ssh:ro # To push changes within the container.
-      - ./:/home/antipodestudios/code

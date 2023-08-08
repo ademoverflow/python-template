@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  python-template:
+    extends:
+      file: docker-compose.yml
+      service: python-template
+    image: python-template:lamda
+    build:
+      target: lamda

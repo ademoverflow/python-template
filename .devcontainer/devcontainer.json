@@ -3,9 +3,10 @@
 	// We run this command to dynamically set environment variables that docker-compose
 	// uses in its configuration before running Docker containers.
 	"initializeCommand": "make generate_env",
-	"dockerComposeFile": "../docker-compose.yml",
+	"dockerComposeFile": "../docker-compose.dev.yml",
 	"service": "python-template",
 	"workspaceFolder": "/home/antipodestudios/code",
+	"overrideCommand": true,
 	"customizations": {
 		"vscode": {
 			"extensions": [
