@@ -35,11 +35,11 @@ USER ${USERNAME}
 RUN mkdir -p -m 0700 ${HOME_DIR}/.ssh
 RUN ssh-keyscan github.com >> ${HOME_DIR}/.ssh/known_hosts
 
-# -----------------------------------------#
-# ------------ Builder target ------------ #
-# -----------------------------------------#
+# --------------------------------- #
+# ------- Development target ------ #
+# --------------------------------- #
 
-FROM base AS builder
+FROM base AS development
 
 # -- Install build dependencies
 USER root
@@ -53,19 +53,6 @@ ENV POETRY_VERSION=1.5.1 \
 ENV PATH="$POETRY_HOME/bin:$PATH"
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
-# -- Generate requirements.txt file from pyproject.toml (for production and lambda targets)
-COPY --chown=${USERNAME}:${GROUP_NAME} pyproject.toml ${CODE_DIR}/pyproject.toml
-COPY --chown=${USERNAME}:${GROUP_NAME} poetry.lock ${CODE_DIR}/poetry.lock
-COPY --chown=${USERNAME}:${GROUP_NAME} poetry.toml ${CODE_DIR}/poetry.toml
-
-RUN --mount=type=ssh,uid=${USER_UID},gid=${USER_GID} poetry export --only main --no-interaction --without-hashes -f requirements.txt -o requirements.txt
-
-# --------------------------------- #
-# ------- Development target ------ #
-# --------------------------------- #
-
-FROM builder AS development
-
 # -- Let the user use sudo without password prompt
 USER root
 RUN apt-get update && apt-get install -y sudo
@@ -78,9 +65,6 @@ RUN sudo apt-get install -y make neovim vim nano git sudo bash-completion
 
 # -- Get default bashrc 
 RUN cp /etc/skel/.bashrc ~/.bashrc
-
-# -- Install all dependencies BUT code source
-RUN --mount=type=ssh,uid=${USER_UID},gid=${USER_GID} poetry install --no-root
 
 # -- Copy source code
 COPY --chown=${USERNAME}:${GROUP_NAME} . ${CODE_DIR}/
@@ -111,8 +95,6 @@ RUN apt-get update && apt-get install -y git
 # -- Install dependencies
 USER ${USERNAME}
 RUN pip install --upgrade pip
-COPY --from=builder --chown={USER_UID}:{USER_GID} ${CODE_DIR}/requirements.txt ${CODE_DIR}/requirements.txt
-RUN --mount=type=ssh,uid=${USER_UID},gid=${USER_GID} pip install -r ${CODE_DIR}/requirements.txt
 
 # -- Copy source code
 COPY --chown={USER_UID}:{USER_GID} src ${CODE_DIR}/src
