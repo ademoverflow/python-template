@@ -8,6 +8,7 @@ packages = [{ include = "python_template", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
+antipode-logging = {git = "ssh://git@github.com/antipodestudios/python-logging.git", rev = "v0.2.0"}
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.15.4"

@@ -12,6 +12,21 @@ files = [
 ]
 
 [[package]]
+name = "antipode-logging"
+version = "0.2.0"
+description = "A simple python logging system for Antipode Studios."
+optional = false
+python-versions = ">=3.10,<3.11"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "ssh://git@github.com/antipodestudios/python-logging.git"
+reference = "v0.2.0"
+resolved_reference = "d56ac7be9cc5db76b7faf906f5bd4573fbdc677f"
+
+[[package]]
 name = "appnope"
 version = "0.1.3"
 description = "Disable App Nap on macOS >= 10.9"
@@ -1954,4 +1969,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.11"
-content-hash = "b6927efd8a8cb178f3638cdcaed9142ef72e7d06fed81e74222edde8db8747b0"
+content-hash = "30a2645f11f17ecc18ac7cd554cf9aac9fd7c73f0ecb72e7132eb3ffa9f59224"
