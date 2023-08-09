@@ -104,7 +104,12 @@ FROM base AS production
 
 USER ${USERNAME}
 
+# -- Install git (to be able to fetch private repositories)
+USER root
+RUN apt-get update && apt-get install -y git
+
 # -- Install dependencies
+USER ${USERNAME}
 RUN pip install --upgrade pip
 COPY --from=builder --chown={USER_UID}:{USER_GID} ${CODE_DIR}/requirements.txt ${CODE_DIR}/requirements.txt
 RUN --mount=type=ssh,uid=${USER_UID},gid=${USER_GID} pip install -r ${CODE_DIR}/requirements.txt
