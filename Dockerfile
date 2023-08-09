@@ -119,7 +119,12 @@ COPY --chown={USER_UID}:{USER_GID} src ${CODE_DIR}/src
 COPY --chown={USER_UID}:{USER_GID} pyproject.toml ${CODE_DIR}/pyproject.toml
 COPY --chown={USER_UID}:{USER_GID} README.md ${CODE_DIR}/README.md
 
+# -- Own code directory
+USER root
+RUN chown -R ${USER_UID}:${USER_GID} ${CODE_DIR}
+
 # -- Install python-template
-RUN pip install -e ${CODE_DIR}
+USER ${USERNAME}
+RUN --mount=type=ssh,uid=${USER_UID},gid=${USER_GID} pip install -e ${CODE_DIR}
 
 CMD ["python", "-m", "python_template"]
