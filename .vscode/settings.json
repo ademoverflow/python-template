@@ -1,6 +1,6 @@
 {
     "python.formatting.provider": "black",
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "python.linting.mypyEnabled": true,
     "python.linting.mypyPath": "mypy",
     "isort.check": true,
