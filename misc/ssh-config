@@ -1,0 +1,8 @@
+# This file is mounted on the container as ~/.ssh/config.
+# Its only purpose is to get custom Host for git, in case you have multiple Hosts on your machine for ssh connections.
+# For now, vscode only forwards ssh-agent to the container, but not the config file.
+# Here is the exact issue on GitHub https://github.com/microsoft/vscode-remote-release/issues/5026
+# So, if you have multiple Hosts for github, you can add them here.
+
+Host github-antipode
+    HostName github.com
