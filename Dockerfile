@@ -76,8 +76,8 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER ${USERNAME}
 RUN sudo apt-get install -y make neovim vim nano git sudo bash-completion
 
-# -- Activate bash-completion
-RUN cat /etc/profile.d/bash_completion.sh >> ${HOME_DIR}/.bashrc
+# -- Get default bashrc 
+RUN cp /etc/skel/.bashrc ~/.bashrc
 
 # -- Install all dependencies BUT code source
 RUN --mount=type=ssh,uid=${USER_UID},gid=${USER_GID} poetry install --no-root
