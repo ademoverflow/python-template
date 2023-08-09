@@ -8,7 +8,7 @@ ifeq (${INSIDE_CONTAINER}, 1)
 	RUN :=
 else
 	INSIDE_DOCKER_CONTAINER = false
-	RUN := $(COMPOSE) run --rm $(PACKAGE_NAME)
+	RUN := $(COMPOSE) -f docker-compose.dev.yml run --rm $(PACKAGE_NAME)
 endif
 
 POETRY := poetry --quiet
