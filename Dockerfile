@@ -64,7 +64,7 @@ FROM builder AS development
 
 # -- Install tools
 USER root
-RUN apt-get install -y make neovim vim nano sudo bash-completion
+RUN apt-get install -y make neovim vim nano sudo git bash-completion
 
 # -- Install all dependencies BUT code source
 USER ${USERNAME}
@@ -85,10 +85,6 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 # -- Enable poetry completion
 USER ${USERNAME}
 RUN poetry completions bash >> ~/.bash_completion
-
-# -- Server configuration
-ENV PORT=80
-ENV HOST=0.0.0.0
 
 # -- Main command
 CMD poetry run python -m python_template 2>&1 | tee ${CODE_DIR}/server.log
