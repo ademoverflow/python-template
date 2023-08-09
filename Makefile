@@ -159,4 +159,5 @@ clean: ## Clean all generated files
 	rm -rf .mypy_cache
 	rm -rf .pytest_cache
 	rm -f .coverage
+	rm -rf .venv
 .PHONY: clean
