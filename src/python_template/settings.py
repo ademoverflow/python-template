@@ -1,5 +1,5 @@
 """ Settings module """
-import decouple
+import os
 
 # Define your python_template settings here (Constants, environment variables, etc.)
-EXAMPLE_CONSTANT = decouple.config("EXAMPLE_CONSTANT", default=10, cast=int)
+EXAMPLE_CONSTANT = int(os.getenv("EXAMPLE_CONSTANT", "10"))
