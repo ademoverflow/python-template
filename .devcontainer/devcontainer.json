@@ -1,7 +1,5 @@
 {
 	"name": "python-template dev container",
-	// We run this command to dynamically set environment variables that docker-compose
-	// uses in its configuration before running Docker containers.
 	"initializeCommand": "make generate_env",
 	"dockerComposeFile": "../docker-compose.dev.yml",
 	"service": "python-template",
@@ -10,13 +8,16 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"github.copilot",
 				"ms-python.python",
-				"ms-python.vscode-pylance",
+				"ms-python.black-formatter",
+				"ms-python.mypy-type-checker",
+				"ms-python.pylint",
 				"ms-python.isort",
+				"github.copilot",
 				"ms-azuretools.vscode-docker",
 				"njpwerner.autodocstring",
-				"tamasfe.even-better-toml"
+				"tamasfe.even-better-toml",
+				"ms-vscode.makefile-tools"
 			]
 		}
 	}

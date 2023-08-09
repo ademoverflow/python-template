@@ -1,17 +1,23 @@
 {
-    "python.formatting.provider": "black",
-    "editor.formatOnSave": false,
-    "python.linting.mypyEnabled": true,
-    "python.linting.mypyPath": "mypy",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+    },
+    "python.defaultInterpreterPath": "./.venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "mypy-type-checker.severity": {
+        "error": "Error",
+        "note": "Information",
+        "warning": "Warning"
+    },
+    "mypy-type-checker.args": [
+        "--config-file=pyproject.toml",
+    ],
     "isort.check": true,
-    "isort.logLevel": "warn",
     "isort.severity": {
         "W": "Warning",
         "E": "Error"
     },
-    "python.linting.pylintEnabled": true,
-    "python.linting.lintOnSave": true,
-    "python.linting.pylintPath": "pylint",
     "files.exclude": {
         "**/__pycache__": true
     }
