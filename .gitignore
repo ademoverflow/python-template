@@ -7,3 +7,4 @@ __pycache__
 docs/build
 docs/source/python_template*
 dist/
+server.log
