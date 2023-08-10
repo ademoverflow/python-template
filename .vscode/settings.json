@@ -10,6 +10,9 @@
         "note": "Information",
         "warning": "Warning"
     },
+    "black-formatter.args": [
+        "--config=pyproject.toml"
+    ],
     "mypy-type-checker.args": [
         "--config-file=pyproject.toml",
     ],
