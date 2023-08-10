@@ -22,16 +22,17 @@ Let's see what's inside each folder:
 
 - `.devcontainer`: folder used by vscode to configure `Dev Containers` extension
 - `.vscode`: folder used by vscode to configure your project's basic configuration.
-- `python_template`: where the magic happens
+- `src/python_template`: where the magic happens
 - `tests`: where the magic is tested (or at least, it's supposed to be tested.)
 
 And files:
 
 - `.dockerignore`: list of files and folders to ignore when building Docker images.
 - `.gitignore`: list of files and folders to ignore in git.
-- `docker-compose.yml`: mostly used for dev purpose, defines a simple service with your python_template.
-- `Dockerfile`: your service / library docker image, with multistage (development and production).
-- `env.example`: an example env file for your project.
+- `docker-compose.yml`: Defines python_template production service.
+- `docker-compose.dev.yml`: Defines python_template development service. Used for local development, and CI (to run code code quality checks).
+- `docker-compose.lambda.yml`: Defines python_template lambda service. Used for lambda deployment (if you use it).
+- `Dockerfile`: your service / library docker image, with multistage (development, production and lambda).
 - `Makefile`: `make` rules, mostly used for CI BUT usable also inside the dev container.
 - `pyproject.toml`, `poetry.toml`, `poetry.lock`: `poetry` files.
 - `README.md`: project documentation.
@@ -41,11 +42,11 @@ And files:
 
 The package is dockerized to ease its development and production deployment.
 
-Inside the Dockerfile you'll find two important stages `development` and `production`:
+Inside the Dockerfile you'll find three important stages `development`, `production` and `lambda`.
 
-- `production`: minimal image that contains production code only.
-- `development`: contains all the tools for development.
-
+- `development`: Contains all the tools for development.
+- `production`: Minimal image that contains production code only.
+- `lambda`: Minimal image that contains production code only, and is ready to be deployed on AWS Lambda.
 
 ## What you need on your machine
 
@@ -59,13 +60,18 @@ You do not need to install poetry, neither the right python version or create a 
 
 You only need `docker` and its `compose` plugin installed. Nothing else.
 
+These versions of docker and docker-compose are known to work:
+
+- docker: 24.0.2
+- docker-compose: 2.20.2
+
 **How to launch your project with Dev Containers**
 
 When you open a project based on this repository, on vscode you just have to `Ctrl+Shift+P` to open vscode command helper and type `Dev Containers: Open Folder in Container`.
 
 Vscode will restart, build your container, install on it vscode-server and some plugins, and .. Tada ! You are ready to code !
 
-__Note__: sometimes plugins does not start properly (example: isort fails to start because it needs python plugin to be ready, it's a race start condition issue). In this case, you just need to reload your vscode:
+**Note**: sometimes plugins do not start properly (example: isort fails to start because it needs python plugin to be ready, it's a race start condition issue). In this case, you just need to reload your vscode:
 
 `Ctrl+Shift+P` and type `Developer: Reload Window`.
 
@@ -73,24 +79,27 @@ That's it ! You are ready to go.
 
 **How the hell this works ?**
 
-Let's explain a bit how all of this work.
+Let's explain a bit how the extension works.
 
-`Dev Containers` allows you to use a container for local development.
+When you open a folder in a container, vscode will look for a `.devcontainer` folder at the root of your project.
 
-We configure the vscode extension with `.devcontainer` folder to use the `development` stage of Dockerfile, through the definition of the service within the `docker-compose.yml` file.
+If it finds it, it will use it to configure the Dev Container.
 
-Docker image build, args, env variables and volume mounts are all defined in the compose file.
+In the `.devcontainer` folder, you'll find a `devcontainer.json` file, which contains the configuration for the container.
 
-Vscode extensions that must be installed in the container to give you the best development experience are defined in `.devcontainer` folder.
+In this file, you'll find a `dockerComposeFile` key, which defines the compose file to use to build the container.
 
-### Other IDEs
+In our case, it is `docker-compose.dev.yml`.
 
-If you are using an IDE that does not support developing inside a container, you should be able to develop inside the container by just using `make dev`.
+This file defines a service named `python_template`, which is the name of our project.
 
-You won't have autocompletion :(
+This service is based on the `Dockerfile` file, and is configured to use the `development` stage.
 
-__Note__: if you manage to make it fully working within your IDE, feel free to add the adequate config and documentation here ! (And also in the template).
+This stage is defined in the `Dockerfile` file, and contains all the tools needed for development.
 
+So, when you open a folder in a container, vscode will build the container based on the `docker-compose.dev.yml` file, which will build the container based on the `Dockerfile` file, and will use the `development` stage.
+
+Extensions defined in the `devcontainer.json` file are installed in the container, and you are ready to go !
 
 ## Makefile
 
@@ -100,11 +109,62 @@ It is developed for the CI/CD mostly, but it is also usable inside the container
 
 Indeed, some rules cannot be launched inside the container, like `build` (which builds the Docker image), so we disable the rule inside the Makefile.
 
+Go check the Makefile to see what you can do with it, documentation is provided inside.
+
 ## GitHub Actions
 
 For workflows to work properly, you need to give some access to Actions:
 
 - In Settings / Actions / General -> Workflows permission, choose "Read and write permissions".
+
+## SSH keys
+
+Antipode Studios repositories are private. You need to have access to them to be able to use them.
+
+More precisely, we have private python packages that could be installed on projects, e.g `antipode-logging` (check the pyproject.toml file).
+
+When you are developing locally, the `Dev Containers` extension will bind your ssh-agent to the container, so you can use your ssh keys to access private repositories.
+
+On the CI, it's a bit different. We need to provide the ssh keys to the CI, so it can access private repositories.
+
+At Antipode Studios, we use a specific GitHub account with read capabilities on all our private repositories: `bot-antipodestudios`.
+
+This account has a ssh key stored in our Bitwarden, feel free to ask for it if you need it.
+
+You need to add this ssh key to your CI secrets, and name it `ANTIPODE_BOT_PRIVATE_KEY` (see GitHub workflows files to see where it is used).
+
+This way, the CI will be able to access private repositories and install private packages.
+
+## Notes about SSH keys and Dev Containers
+
+When you open a folder in a container, vscode will bind your ssh-agent to the container, as said before.
+
+This works straight out of the box, when you have a simple ssh config on your host (e.g: only one GitHub account, with only one ssh key).
+
+__But__, let's say you own two or more GitHub accounts, (one for your personal projects, and one for your work projects), you probably have a ssh config file like this:
+
+```bash
+# ~/.ssh/config
+# Personal account
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa
+
+# Work account
+Host github.com-antipodestudios
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_antipodestudios
+```
+
+If you define some custom hosts like this, you'll need to add custom configuration in a specific file of this repository: `misc/ssh-config`.
+
+All you need to do is add your custom host in this file, and it will be added to the container.
+
+This way, you'll be able to access your private repositories, and also have access to git commands.
+
+Go check the [misc/ssh-config](./misc/ssh-config) file to have more information about how to use it.
 
 ## Template usage
 
