@@ -23,6 +23,27 @@ myst-parser = "^0.18.1"
 sphinx-rtd-theme = "^1.1.1"
 python-semantic-release = "^7.33.0"
 mypy = "^1.4.1"
+poethepoet = "^0.21.1"
+
+[tool.poe.tasks]
+# Tasks that modify source code if necessary.
+format = "black src/python_template tests"
+sort = "isort src/python_template tests"
+# Tasks to check source code quality
+check-format = "black --check src/python_template tests"
+check-sort = "isort --check src/python_template tests"
+check-types = "mypy src/python_template tests"
+check-lint = "pylint src/python_template tests"
+# Tasks to run tests
+unit-tests = "coverage run -m pytest"
+coverage = "coverage report -m"
+# Global tasks to run all checks and tests
+code-quality = ["check-format", "check-sort", "check-types", "check-lint"]
+tests = ["unit-tests", "coverage"]
+integration-tests = "echo NOT_IMPLEMENTED"
+
+
+
 
 [tool.mypy]
 disallow_untyped_defs = true
