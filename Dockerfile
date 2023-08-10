@@ -38,6 +38,13 @@ RUN ssh-keyscan github.com >> ${HOME_DIR}/.ssh/known_hosts
 # --------------------------------- #
 # ------- Development target ------ #
 # --------------------------------- #
+# Content:
+# - Install build dependencies
+# - Install dev tools
+# - Install poetry
+# - Copy source code
+# - Install all dependencies including code source
+# - Enable poetry completion
 
 FROM base AS development
 
@@ -83,6 +90,10 @@ CMD poetry run python -m python_template 2>&1 | tee ${CODE_DIR}/server.log
 # --------------------------------- #
 # ------- Production target ------- #
 # --------------------------------- #
+# Content:
+# - Install git (to be able to fetch private repositories)
+# - Install dependencies
+# - Install python-template
 
 FROM base AS production
 
