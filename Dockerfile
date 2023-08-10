@@ -121,3 +121,37 @@ USER ${USERNAME}
 RUN --mount=type=ssh,uid=${USER_UID},gid=${USER_GID} pip install -e ${CODE_DIR}
 
 CMD ["python", "-m", "python_template"]
+
+# --------------------------------- #
+# --------- Lambda target --------- #
+# --------------------------------- #
+# Content:
+# - Install ssh client for git private packages
+# - Configure ssh-client
+# - Copy source code
+# - Install production dependencies
+
+FROM public.ecr.aws/lambda/python:3.10 AS lambda
+
+# -- Install ssh client for git private packages
+RUN yum install -y openssh-clients git
+
+# -- Configure ssh-client
+RUN mkdir -p -m 0600 ~/.ssh && \
+    ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+# -- Copy source code
+COPY pyproject.toml pyproject.toml
+COPY README.md README.md
+COPY src/python_template ${LAMBDA_TASK_ROOT}/src/python_template
+
+# -- Install production dependencies:
+RUN pip install --upgrade pip
+RUN --mount=type=ssh pip install -e .
+
+# -- Uninstall ssh client and git
+RUN yum remove -y openssh-clients && \
+    yum remove -y git && \
+    yum clean all
+
+CMD [ "python_template.main.handler" ]

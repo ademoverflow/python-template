@@ -5,6 +5,6 @@ services:
     extends:
       file: docker-compose.yml
       service: python-template
-    image: python-template:lamda
+    image: python-template:lambda
     build:
-      target: lamda
+      target: lambda
