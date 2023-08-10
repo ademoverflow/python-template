@@ -1,6 +1,6 @@
 {
 	"name": "python-template dev container",
-	"initializeCommand": "make generate_env",
+	"initializeCommand": "make generate-env",
 	"dockerComposeFile": "../docker-compose.dev.yml",
 	"service": "python-template",
 	"workspaceFolder": "/home/antipodestudios/code",

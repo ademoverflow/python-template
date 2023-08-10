@@ -17,17 +17,17 @@ endif
 ############################################
 
 ifeq ($(INSIDE_DOCKER_CONTAINER), false)
-generate_env: ## Generate .env file for docker image.
+generate-env: ## Generate .env file for docker image.
 	echo "USER_UID=$$(id -u)" > .env
 	echo "USER_GID=$$(id -g)" >> .env
-.PHONY: generate_env
+.PHONY: generate-env
 
-build: generate_env ## Build development docker image.
+build: generate-env ## Build development docker image.
 	${COMPOSE} build ${PACKAGE_NAME}
 
-next_release: ## Generate next release and publish it to GitHub Releases.
+next-release: ## Generate next release and publish it to GitHub Releases.
 	${COMPOSE} run --rm -e GH_TOKEN=${GITHUB_TOKEN} ${PACKAGE_NAME} bash -c "scripts/next-release.sh"
-.PHONY: next_release
+.PHONY: next-release
 
 endif
 
