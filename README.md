@@ -117,37 +117,6 @@ For workflows to work properly, you need to give some access to Actions:
 
 - In Settings / Actions / General -> Workflows permission, choose "Read and write permissions".
 
-## Using GIT with SSH in Dev Container
-
-When you open a folder in a container, vscode will bind your ssh-agent to the container, as said before.
-
-This works straight out of the box, when you have a simple ssh config on your host (e.g: only one GitHub account, with only one ssh key).
-
-__But__, let's say you own two or more GitHub accounts, (one for your personal projects, and one for your work projects), you probably have a ssh config file like this:
-
-```bash
-# ~/.ssh/config
-# Personal account
-Host github.com
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_rsa
-
-# Work account
-Host github.com-antipodestudios
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_rsa_antipodestudios
-```
-
-If you define some custom hosts like this, you'll need to add custom configuration in a specific file of this repository: `misc/ssh-config`.
-
-All you need to do is add your custom host in this file, and it will be added to the container.
-
-This way, you'll be able to access your private repositories, and also have access to git commands.
-
-Go check the [misc/ssh-config](./misc/ssh-config) file to have more information about how to use it.
-
 ## Template usage
 
 This repository is a template.

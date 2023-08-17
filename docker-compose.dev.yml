@@ -11,4 +11,3 @@ services:
     volumes:
       - ./:/home/antipodestudios/code
       - /home/antipodestudios/code/.venv
-      - ./misc/ssh-config:/home/antipodestudios/.ssh/config
