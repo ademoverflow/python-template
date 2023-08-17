@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v1.8.0 (2023-08-17)
+### Feature
+* Backport aws configuration in template ([`63103ff`](https://github.com/antipodestudios/python-template/commit/63103ff6070198186f1233e6669ed1d22efc2424))
+
+### Fix
+* Remove unused ssh config ([`46b5da0`](https://github.com/antipodestudios/python-template/commit/46b5da00ebb9e4ef36ea4a0dd003dbca4da3888f))
+
 ## v1.7.1 (2023-08-17)
 ### Fix
 * Remove antipode logging ([`11937cd`](https://github.com/antipodestudios/python-template/commit/11937cdbae80d53a4d00a1a65072bc84b711c6d7))
