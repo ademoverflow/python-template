@@ -42,9 +42,6 @@ code-quality = ["check-format", "check-sort", "check-types", "check-lint"]
 tests = ["unit-tests", "coverage"]
 integration-tests = "echo NOT_IMPLEMENTED"
 
-
-
-
 [tool.mypy]
 disallow_untyped_defs = true
 mypy_path = "stubs"
