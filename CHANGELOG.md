@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.7.1 (2023-08-17)
+### Fix
+* Remove antipode logging ([`11937cd`](https://github.com/antipodestudios/python-template/commit/11937cdbae80d53a4d00a1a65072bc84b711c6d7))
+
 ## v1.7.0 (2023-08-17)
 ### Feature
 * Add lambda stage to dockerfile ([`e9f4bef`](https://github.com/antipodestudios/python-template/commit/e9f4bef20f801584c22a873ad74d6973ccafaca7))
