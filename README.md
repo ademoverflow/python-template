@@ -117,25 +117,7 @@ For workflows to work properly, you need to give some access to Actions:
 
 - In Settings / Actions / General -> Workflows permission, choose "Read and write permissions".
 
-## SSH keys
-
-Antipode Studios repositories are private. You need to have access to them to be able to use them.
-
-More precisely, we have private python packages that could be installed on projects, e.g `antipode-logging` (check the pyproject.toml file).
-
-When you are developing locally, the `Dev Containers` extension will bind your ssh-agent to the container, so you can use your ssh keys to access private repositories.
-
-On the CI, it's a bit different. We need to provide the ssh keys to the CI, so it can access private repositories.
-
-At Antipode Studios, we use a specific GitHub account with read capabilities on all our private repositories: `bot-antipodestudios`.
-
-This account has a ssh key stored in our Bitwarden, feel free to ask for it if you need it.
-
-You need to add this ssh key to your CI secrets, and name it `ANTIPODE_BOT_PRIVATE_KEY` (see GitHub workflows files to see where it is used).
-
-This way, the CI will be able to access private repositories and install private packages.
-
-## Notes about SSH keys and Dev Containers
+## Using GIT with SSH in Dev Container
 
 When you open a folder in a container, vscode will bind your ssh-agent to the container, as said before.
 
