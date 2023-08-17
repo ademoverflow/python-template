@@ -6,8 +6,6 @@ services:
     hostname: python-template
     build:
       context: .
-      ssh:
-        - default
       dockerfile: Dockerfile
       target: production
       args:

@@ -10,4 +10,5 @@ services:
       target: development
     volumes:
       - ./:/home/antipodestudios/code
+      - ${HOME}/.aws:/home/antipodestudios/.aws:ro
       - /home/antipodestudios/code/.venv

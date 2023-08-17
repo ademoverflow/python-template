@@ -3,7 +3,6 @@
 # -----------------------------------------#
 # Content:
 # - Create a non-root user and group with its home directory
-# - Install and configure ssh (to be able to fetch private repositories)
 
 FROM --platform=linux/amd64 python:3.10-slim AS base
 
@@ -28,12 +27,6 @@ WORKDIR ${CODE_DIR}
 RUN groupadd -g ${USER_GID} ${GROUP_NAME}
 RUN adduser -uid ${USER_UID} -gid ${USER_GID} ${USERNAME} --home ${HOME_DIR}
 RUN chown -R ${USER_UID}:${USER_GID} ${HOME_DIR}
-
-# -- Install and configure ssh
-RUN apt-get update && apt-get install -y ssh
-USER ${USERNAME}
-RUN mkdir -p -m 0700 ${HOME_DIR}/.ssh
-RUN ssh-keyscan github.com >> ${HOME_DIR}/.ssh/known_hosts
 
 # --------------------------------- #
 # ------- Development target ------ #
@@ -68,7 +61,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # -- Install tools
 USER ${USERNAME}
-RUN sudo apt-get install -y make neovim vim nano git sudo bash-completion
+RUN sudo apt-get install -y make neovim vim nano git sudo bash-completion awscli
 
 # -- Get default bashrc 
 RUN cp /etc/skel/.bashrc ~/.bashrc
@@ -77,7 +70,7 @@ RUN cp /etc/skel/.bashrc ~/.bashrc
 COPY --chown=${USERNAME}:${GROUP_NAME} . ${CODE_DIR}/
 
 # -- Install all dependencies including code source
-RUN --mount=type=ssh,uid=${USER_UID},gid=${USER_GID} poetry install
+RUN poetry install
 
 # -- Enable poetry completion
 USER root
@@ -93,7 +86,7 @@ CMD poetry run python -m python_template 2>&1 | tee ${CODE_DIR}/server.log
 # Content:
 # - Install git (to be able to fetch private repositories)
 # - Install dependencies
-# - Install python-template
+# - Install antipode-logging
 
 FROM base AS production
 
@@ -116,9 +109,9 @@ COPY --chown={USER_UID}:{USER_GID} README.md ${CODE_DIR}/README.md
 USER root
 RUN chown -R ${USER_UID}:${USER_GID} ${CODE_DIR}
 
-# -- Install python-template
+# -- Install antipode-logging
 USER ${USERNAME}
-RUN --mount=type=ssh,uid=${USER_UID},gid=${USER_GID} pip install -e ${CODE_DIR}
+RUN pip install -e ${CODE_DIR}
 
 CMD ["python", "-m", "python_template"]
 
@@ -126,19 +119,10 @@ CMD ["python", "-m", "python_template"]
 # --------- Lambda target --------- #
 # --------------------------------- #
 # Content:
-# - Install ssh client for git private packages
-# - Configure ssh-client
 # - Copy source code
 # - Install production dependencies
 
 FROM public.ecr.aws/lambda/python:3.10 AS lambda
-
-# -- Install ssh client for git private packages
-RUN yum install -y openssh-clients git
-
-# -- Configure ssh-client
-RUN mkdir -p -m 0600 ~/.ssh && \
-    ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # -- Copy source code
 COPY pyproject.toml pyproject.toml
@@ -147,11 +131,6 @@ COPY src/python_template ${LAMBDA_TASK_ROOT}/src/python_template
 
 # -- Install production dependencies:
 RUN pip install --upgrade pip
-RUN --mount=type=ssh pip install -e .
-
-# -- Uninstall ssh client and git
-RUN yum remove -y openssh-clients && \
-    yum remove -y git && \
-    yum clean all
+RUN pip install -e .
 
 CMD [ "python_template.main.handler" ]
