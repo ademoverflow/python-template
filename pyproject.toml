@@ -8,6 +8,7 @@ packages = [{ include = "python_template", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
+antipode-logging = {version = "^0.3.2", source = "antipodestudios"}
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.15.4"
@@ -77,6 +78,11 @@ build_command = "poetry build"
 upload_to_repository = false
 upload_to_release = true
 commit_author = "github-actions <action@github.com>"
+
+[[tool.poetry.source]]
+name = "antipodestudios"
+url = "https://antipodestudios-822030640566.d.codeartifact.eu-west-1.amazonaws.com/pypi/antipodestudios/simple"
+priority = "explicit"
 
 [build-system]
 requires = ["poetry-core"]

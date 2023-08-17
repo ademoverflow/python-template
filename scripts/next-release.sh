@@ -14,8 +14,8 @@ git pull origin master
 
 # Get AWS Code Artifact Info and token:
 echo "Publishing next release ${VERSION} on AWS Code Artifact ..."
-DOMAIN=antipodestudios-python
-REPOSITORY=antipodestudios-python
+DOMAIN=antipodestudios
+REPOSITORY=antipodestudios
 CODEARTIFACT_REPOSITORY_URL=$(aws codeartifact get-repository-endpoint --domain ${DOMAIN} --repository ${REPOSITORY} --format pypi --output text)
 CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain ${DOMAIN} --query authorizationToken --output text)
 CODEARTIFACT_USER=aws
