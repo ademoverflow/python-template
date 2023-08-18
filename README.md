@@ -14,7 +14,7 @@ It contains the adequate tooling for:
 - Code formatting with `black` + `isort` and linting with `pylint`
 - Strong type checking with `mypy`
 
-All the configuration for these tools are located directly in `pyproject.toml`, you don't need dot files for this (awesome, isn't it ?)
+All the configuration for these tools are located directly in `pyproject.toml`, you don't need dot files for this (awesome, isn't it ? :fire:)
 
 ## Project organization
 
@@ -44,15 +44,15 @@ The package is dockerized to ease its development and production deployment.
 
 Inside the Dockerfile you'll find three important stages `development`, `production` and `lambda`.
 
-- `development`: Contains all the tools for development.
+- `development`: Contains all the tools for development (also used in CI).
 - `production`: Minimal image that contains production code only.
 - `lambda`: Minimal image that contains production code only, and is ready to be deployed on AWS Lambda.
 
 ## What you need on your machine
 
-### For Visual Studio Code Users
+This template uses a killer feature available on vscode: `Dev Containers`.
 
-This template uses a killer feature available on vscode: `Dev Containers`. You need to install the extension to make it available.
+You need to install the extension to make it available. You need to use VScode to make the most of this template.
 
 It basically allows you to develop within your container, with full IDE features support (integrated terminal, autocompletion, warnings and errors, etc.)
 
@@ -64,6 +64,21 @@ These versions of docker and docker-compose are known to work:
 
 - docker: 24.0.2
 - docker-compose: 2.20.2
+
+__Note__:
+
+We have private python packages that are stored on AWS CodeArtifact. To be able to install them on your project, you need to have your AWS credentials stored in ${HOME}/.aws/credentials.
+
+You don't need to have `awscli` installed, just the config file.
+
+Here is an example of `credentials` file:
+
+```ini
+[default]
+aws_access_key_id = <YOUR_ACCESS_KEY>
+aws_secret_access_key = <YOUR_SECRET_ACCESS_KEY>
+region = eu-west-1
+```
 
 **How to launch your project with Dev Containers**
 
@@ -107,7 +122,7 @@ A Makefile is provided to let you run basic commands easily.
 
 It is developed for the CI/CD mostly, but it is also usable inside the container (at least some code related rules).
 
-Indeed, some rules cannot be launched inside the container, like `build` (which builds the Docker image), so we disable the rule inside the Makefile.
+Indeed, some rules cannot be launched inside the container, like `build-development` (which builds the Docker image), so we disable the rule inside the Makefile.
 
 Go check the Makefile to see what you can do with it, documentation is provided inside.
 
@@ -116,6 +131,12 @@ Go check the Makefile to see what you can do with it, documentation is provided 
 For workflows to work properly, you need to give some access to Actions:
 
 - In Settings / Actions / General -> Workflows permission, choose "Read and write permissions".
+
+### AWS Credentials
+
+As we need to have our AWS credentials stored on our machine for local development, GitHub runners also need this credentials file. You need to create a secret on GitHub, named `AWS_CREDENTIALS`. The content of this secret must be the complete credentials file, as you have on your machine.
+
+You should use a dedicated AWS user for the CI, to restrict its permissions in case of a leak.
 
 ## Template usage
 
