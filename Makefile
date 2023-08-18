@@ -26,12 +26,7 @@ build: generate-env ## Build development docker image.
 	${COMPOSE} build ${PACKAGE_NAME}
 
 next-release: ## Generate next release and publish it to GitHub Releases.
-	${COMPOSE} run \
-		-e GH_TOKEN=${GH_TOKEN} \
-		-e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
-		-e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
-		-e AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION} \
-		--rm ${PACKAGE_NAME} bash -c "scripts/next-release.sh"
+	${COMPOSE} run -e GH_TOKEN=${GH_TOKEN} --rm ${PACKAGE_NAME} bash -c "scripts/next-release.sh"
 .PHONY: next-release
 
 endif
