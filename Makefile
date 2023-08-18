@@ -17,6 +17,7 @@ endif
 ############################################
 
 ifeq ($(INSIDE_DOCKER_CONTAINER), false)
+
 generate-env: ## Generate .env file for docker image.
 	echo "USER_UID=$$(id -u)" > .env
 	echo "USER_GID=$$(id -g)" >> .env
@@ -24,12 +25,15 @@ generate-env: ## Generate .env file for docker image.
 
 build-development: generate-env ## Build development docker image.
 	${COMPOSE} -f docker-compose.dev.yml build ${PACKAGE_NAME}
+.PHONY: build-development
 
 build-production: generate-env ## Build production docker image.
 	${COMPOSE} -f docker-compose.yml build ${PACKAGE_NAME}
+.PHONY: build-production
 
 build-lambda: generate-env ## Build lambda docker image.
 	${COMPOSE} -f docker-compose.lambda.yml build ${PACKAGE_NAME}
+.PHONY: build-lambda
 
 next-release: ## Generate next release and publish it to GitHub Releases.
 	${COMPOSE} -f docker-compose.dev.yml run -e GH_TOKEN=${GH_TOKEN} --rm ${PACKAGE_NAME} bash -c "scripts/next-release.sh"
@@ -68,4 +72,10 @@ clean: ## Clean all generated files
 	rm -rf .pytest_cache
 	rm -f .coverage
 	find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs rm -rf
+	rm -f .env
+# Clean .venv if outside the container
+ifeq ($(INSIDE_DOCKER_CONTAINER), false)
+	rm -rf .venv
+endif
+	
 .PHONY: clean
