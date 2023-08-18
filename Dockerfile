@@ -14,6 +14,10 @@ ARG USER_GID
 ENV INSIDE_CONTAINER=1
 ENV PYTHONUNBUFFERED=true
 
+# -- Code Artifact parameters
+ENV CODEARTIFACT_DOMAIN=antipodestudios
+ENV CODEARTIFACT_REPOSITORY=antipodestudios
+
 # -- Create a non-root user
 ENV USERNAME=antipodestudios
 ENV GROUP_NAME=antipodestudios
@@ -71,8 +75,8 @@ COPY --chown=${USERNAME}:${GROUP_NAME} . ${CODE_DIR}/
 
 # -- Install all dependencies including code source
 RUN --mount=type=secret,id=aws,target=${HOME_DIR}/.aws/credentials,uid=${USER_UID},gid=${USER_GID} bash scripts/poetry-codeartifact-token.sh \
-    --domain antipodestudios \
-    --repository antipodestudios
+    --domain ${CODEARTIFACT_DOMAIN} \
+    --repository ${CODEARTIFACT_REPOSITORY}
 RUN poetry install
 
 # -- Enable poetry completion
@@ -95,13 +99,12 @@ FROM base AS production
 
 USER ${USERNAME}
 
-# -- Install git (to be able to fetch private repositories)
+# -- Install build dependencies
 USER root
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y awscli
 
 # -- Install dependencies
 USER ${USERNAME}
-RUN pip install --upgrade pip
 
 # -- Copy source code
 COPY --chown={USER_UID}:{USER_GID} src ${CODE_DIR}/src
@@ -112,10 +115,24 @@ COPY --chown={USER_UID}:{USER_GID} README.md ${CODE_DIR}/README.md
 USER root
 RUN chown -R ${USER_UID}:${USER_GID} ${CODE_DIR}
 
-# -- Install python-template
+# Login to AWS codeartifact to install private packages
 USER ${USERNAME}
+RUN --mount=type=secret,id=aws,target=${HOME_DIR}/.aws/credentials,uid=${USER_UID},gid=${USER_GID} \
+    aws codeartifact login \
+        --tool pip \
+        --domain ${CODEARTIFACT_DOMAIN} \
+        --repository ${CODEARTIFACT_REPOSITORY}
+RUN sed -i 's/index-url/extra-index-url/g' ${HOME_DIR}/.config/pip/pip.conf 
+
+# -- Install python dependencies
+RUN pip install --upgrade pip
 RUN pip install -e ${CODE_DIR}
 
+# -- Uninstall build dependencies
+USER root
+RUN apt-get remove --purge -y git awscli
+
+USER ${USERNAME}
 CMD ["python", "-m", "python_template"]
 
 # --------------------------------- #
@@ -127,13 +144,32 @@ CMD ["python", "-m", "python_template"]
 
 FROM public.ecr.aws/lambda/python:3.10 AS lambda
 
+# -- We must redefine these env here:
+ENV CODEARTIFACT_REPOSITORY=antipodestudios
+ENV CODEARTIFACT_DOMAIN=antipodestudios
+
 # -- Copy source code
 COPY pyproject.toml pyproject.toml
 COPY README.md README.md
 COPY src/python_template ${LAMBDA_TASK_ROOT}/src/python_template
 
-# -- Install production dependencies:
+# -- Install build dependencies
+RUN yum install -y awscli
+
+# Login to AWS codeartifact to install private packages
+RUN mkdir -p /root/.aws
+RUN --mount=type=secret,id=aws,target=/root/.aws/credentials \
+    aws codeartifact login \
+        --tool pip \
+        --domain ${CODEARTIFACT_DOMAIN} \
+        --repository ${CODEARTIFACT_REPOSITORY}
+RUN sed -i 's/index-url/extra-index-url/g' ${HOME}/.config/pip/pip.conf 
+
+# -- Install python dependencies
 RUN pip install --upgrade pip
 RUN pip install -e .
+
+# -- Uninstall build dependencies
+RUN yum remove awscli
 
 CMD [ "python_template.main.handler" ]

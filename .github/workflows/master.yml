@@ -25,7 +25,7 @@ jobs:
           mkdir -p ${HOME}/.aws
           echo "${{ secrets.AWS_CREDENTIALS }}" > ${HOME}/.aws/credentials
       - name: BUILD
-        run: make build
+        run: make build-development
       - name: CODE QUALITY
         run: make code-quality
       - name: UNIT TESTS

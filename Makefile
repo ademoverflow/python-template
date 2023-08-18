@@ -3,13 +3,13 @@
 PACKAGE_NAME := python-template
 
 POETRY := poetry --quiet
-COMPOSE := docker-compose -f docker-compose.dev.yml
+COMPOSE := docker-compose
 ifeq (${INSIDE_CONTAINER}, 1)
 	INSIDE_DOCKER_CONTAINER = true
 	RUN :=
 else
 	INSIDE_DOCKER_CONTAINER = false
-	RUN := $(COMPOSE) run --rm $(PACKAGE_NAME)
+	RUN := $(COMPOSE) -f docker-compose.dev.yml run --rm $(PACKAGE_NAME)
 endif
 
 ############################################
@@ -22,11 +22,17 @@ generate-env: ## Generate .env file for docker image.
 	echo "USER_GID=$$(id -g)" >> .env
 .PHONY: generate-env
 
-build: generate-env ## Build development docker image.
-	${COMPOSE} build ${PACKAGE_NAME}
+build-development: generate-env ## Build development docker image.
+	${COMPOSE} -f docker-compose.dev.yml build ${PACKAGE_NAME}
+
+build-production: generate-env ## Build production docker image.
+	${COMPOSE} -f docker-compose.yml build ${PACKAGE_NAME}
+
+build-lambda: generate-env ## Build lambda docker image.
+	${COMPOSE} -f docker-compose.lambda.yml build ${PACKAGE_NAME}
 
 next-release: ## Generate next release and publish it to GitHub Releases.
-	${COMPOSE} run -e GH_TOKEN=${GH_TOKEN} --rm ${PACKAGE_NAME} bash -c "scripts/next-release.sh"
+	${COMPOSE} -f docker-compose.dev.yml run -e GH_TOKEN=${GH_TOKEN} --rm ${PACKAGE_NAME} bash -c "scripts/next-release.sh"
 .PHONY: next-release
 
 endif
