@@ -8,6 +8,12 @@ services:
       context: .
       dockerfile: Dockerfile
       target: production
+      secrets:
+        - aws
       args:
         USER_UID: ${USER_UID}
         USER_GID: ${USER_GID}
+
+secrets:
+  aws:
+    file: ${HOME}/.aws/credentials

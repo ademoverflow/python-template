@@ -70,6 +70,9 @@ RUN cp /etc/skel/.bashrc ~/.bashrc
 COPY --chown=${USERNAME}:${GROUP_NAME} . ${CODE_DIR}/
 
 # -- Install all dependencies including code source
+RUN --mount=type=secret,id=aws,target=${HOME_DIR}/.aws/credentials,uid=${USER_UID},gid=${USER_GID} bash scripts/poetry-codeartifact-token.sh \
+    --domain antipodestudios \
+    --repository antipodestudios
 RUN poetry install
 
 # -- Enable poetry completion
@@ -109,7 +112,7 @@ COPY --chown={USER_UID}:{USER_GID} README.md ${CODE_DIR}/README.md
 USER root
 RUN chown -R ${USER_UID}:${USER_GID} ${CODE_DIR}
 
-# -- Install antipode-logging
+# -- Install python-template
 USER ${USERNAME}
 RUN pip install -e ${CODE_DIR}
 

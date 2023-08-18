@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+PACKAGE_NAME=python-template
+
+# Prepare codeartifactory parameters
+args=$(./scripts/codeartifactory-args.sh "$@")
+IFS=',' read -r -a args <<< "$args"
+domain="${args[0]}";repository="${args[1]}"
+info=$(bash scripts/get-codeartifact-info.sh --domain ${domain} --repository ${repository})
+IFS=',' read -r -a info <<< "$info"
+repository_url="${info[0]}";user="${info[1]}";token="${info[2]}"
+
 # Configure GIT user
 git config --global user.name "github-actions"
 git config --global user.email "action@github.com"
@@ -12,22 +22,11 @@ poetry run semantic-release publish
 # Re Pull from master branch
 git pull origin master
 
-# Get AWS Code Artifact Info and token:
-echo "Publishing next release ${VERSION} on AWS Code Artifact ..."
-DOMAIN=antipodestudios
-REPOSITORY=antipodestudios
-CODEARTIFACT_REPOSITORY_URL=$(aws codeartifact get-repository-endpoint --domain ${DOMAIN} --repository ${REPOSITORY} --format pypi --output text)
-CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain ${DOMAIN} --query authorizationToken --output text)
-CODEARTIFACT_USER=aws
-
 # Configure poetry
-PACKAGE_NAME=python-template
-poetry config repositories.${PACKAGE_NAME} ${CODEARTIFACT_REPOSITORY_URL}
-poetry config http-basic.${PACKAGE_NAME} ${CODEARTIFACT_USER} ${CODEARTIFACT_AUTH_TOKEN}
+echo "Publishing next release ${VERSION} on AWS Code Artifact ..."
+poetry config repositories.${PACKAGE_NAME} ${repository_url}
+poetry config http-basic.${PACKAGE_NAME} ${user} ${token}
 
 # Build and publish to AWS Code Artifact
-echo "Building ${PACKAGE_NAME} ..."
 poetry build
-echo "Publishing ${PACKAGE_NAME} to AWS ..."
 poetry publish -r ${PACKAGE_NAME}
-echo "DONE !"

@@ -8,3 +8,9 @@ services:
     image: python-template:lambda
     build:
       target: lambda
+      secrets:
+        - aws
+
+secrets:
+  aws:
+    file: ${HOME}/.aws/credentials

@@ -8,7 +8,13 @@ services:
     image: python-template:development
     build:
       target: development
+      secrets:
+        - aws
     volumes:
       - ./:/home/antipodestudios/code
       - ${HOME}/.aws:/home/antipodestudios/.aws:ro
       - /home/antipodestudios/code/.venv
+
+secrets:
+  aws:
+    file: ${HOME}/.aws/credentials
