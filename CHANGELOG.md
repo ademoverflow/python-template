@@ -2,6 +2,15 @@
 
 <!--next-version-placeholder-->
 
+## v1.9.0 (2023-08-18)
+### Feature
+* Do not use AWS env variables in next-release rule ([`82ddfec`](https://github.com/antipodestudios/python-template/commit/82ddfeca2c74c11598d8581e26e9a7242c9f01d4))
+* Buildtime fetch from codeartifact (development target only) ([`5121d02`](https://github.com/antipodestudios/python-template/commit/5121d02283a69659e9c54e9d248f9dd974f9e357))
+* Use codeartifact repository ([`55bea62`](https://github.com/antipodestudios/python-template/commit/55bea6247a59aef18bf90b2c64c68cadf75a7b30))
+
+### Fix
+* Generate aws credentials file from github action ([`512e0aa`](https://github.com/antipodestudios/python-template/commit/512e0aa283d2b4d7e93ae7274363d712f6404f39))
+
 ## v1.8.0 (2023-08-17)
 ### Feature
 * Backport aws configuration in template ([`63103ff`](https://github.com/antipodestudios/python-template/commit/63103ff6070198186f1233e6669ed1d22efc2424))
