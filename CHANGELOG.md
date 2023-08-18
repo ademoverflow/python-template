@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v1.10.0 (2023-08-18)
+### Feature
+* Mutualise dockerfile argument ([`f806177`](https://github.com/antipodestudios/python-template/commit/f80617753e2cfaa66a24c7df21ab36349eb54594))
+* Buildtime fetch from codeartifact (all targets) ([`8a32ba5`](https://github.com/antipodestudios/python-template/commit/8a32ba5c6770b7d4cffc85b6b8a211beeafaad79))
+
 ## v1.9.0 (2023-08-18)
 ### Feature
 * Do not use AWS env variables in next-release rule ([`82ddfec`](https://github.com/antipodestudios/python-template/commit/82ddfeca2c74c11598d8581e26e9a7242c9f01d4))
