@@ -1,10 +1,21 @@
-# -----------------------------------------#
+# ---------------------------------------- #
+# ------- Common build arguments --------- #
+# ---------------------------------------- #
+
+# -- Python version
+ARG PYTHON_VERSION=3.10
+
+# -- Code Artifact parameters
+ARG CODEARTIFACT_DOMAIN=antipodestudios
+ARG CODEARTIFACT_REPOSITORY=antipodestudios
+
+# ---------------------------------------- #
 # -------------- Base target ------------- #
-# -----------------------------------------#
+# ---------------------------------------- #
 # Content:
 # - Create a non-root user and group with its home directory
 
-FROM --platform=linux/amd64 python:3.10-slim AS base
+FROM python:${PYTHON_VERSION}-slim AS base
 
 # -- Retrieve UID and GID from build args
 ARG USER_UID
@@ -13,10 +24,6 @@ ARG USER_GID
 # -- Python related environment variables
 ENV INSIDE_CONTAINER=1
 ENV PYTHONUNBUFFERED=true
-
-# -- Code Artifact parameters
-ENV CODEARTIFACT_DOMAIN=antipodestudios
-ENV CODEARTIFACT_REPOSITORY=antipodestudios
 
 # -- Create a non-root user
 ENV USERNAME=antipodestudios
@@ -45,8 +52,11 @@ RUN chown -R ${USER_UID}:${USER_GID} ${HOME_DIR}
 
 FROM base AS development
 
+# -- Code Artifact parameters
+ARG CODEARTIFACT_DOMAIN
+ARG CODEARTIFACT_REPOSITORY
+
 # -- Install build dependencies
-USER root
 RUN apt-get update && apt-get install -y curl
 
 # -- Install poetry
@@ -97,14 +107,12 @@ CMD poetry run python -m python_template 2>&1 | tee ${CODE_DIR}/server.log
 
 FROM base AS production
 
-USER ${USERNAME}
+# -- Code Artifact parameters
+ARG CODEARTIFACT_DOMAIN
+ARG CODEARTIFACT_REPOSITORY
 
 # -- Install build dependencies
-USER root
 RUN apt-get update && apt-get install -y awscli
-
-# -- Install dependencies
-USER ${USERNAME}
 
 # -- Copy source code
 COPY --chown={USER_UID}:{USER_GID} src ${CODE_DIR}/src
@@ -142,11 +150,11 @@ CMD ["python", "-m", "python_template"]
 # - Copy source code
 # - Install production dependencies
 
-FROM public.ecr.aws/lambda/python:3.10 AS lambda
+FROM public.ecr.aws/lambda/python:${PYTHON_VERSION} AS lambda
 
-# -- We must redefine these env here:
-ENV CODEARTIFACT_REPOSITORY=antipodestudios
-ENV CODEARTIFACT_DOMAIN=antipodestudios
+# -- Code Artifact parameters
+ARG CODEARTIFACT_DOMAIN
+ARG CODEARTIFACT_REPOSITORY
 
 # -- Copy source code
 COPY pyproject.toml pyproject.toml
@@ -170,6 +178,6 @@ RUN pip install --upgrade pip
 RUN pip install -e .
 
 # -- Uninstall build dependencies
-RUN yum remove awscli
+RUN yum remove -y awscli
 
 CMD [ "python_template.main.handler" ]
