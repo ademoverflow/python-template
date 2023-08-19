@@ -2,16 +2,21 @@ version: '3'
 
 services:
   python-template:
-    image: python-template:production
+    image: python-template:development
     hostname: python-template
     build:
       context: .
       dockerfile: Dockerfile
+      target: development
       secrets:
         - aws
       args:
         USER_UID: ${USER_UID}
         USER_GID: ${USER_GID}
+    volumes:
+      - ./:/home/antipodestudios/code
+      - ${HOME}/.aws:/home/antipodestudios/.aws:ro
+      - /home/antipodestudios/code/.venv
 
 secrets:
   aws:

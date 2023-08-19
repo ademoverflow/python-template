@@ -2,7 +2,7 @@
 
 set -e
 
-args=$(./scripts/codeartifactory-args.sh "$@")
+args=$(./scripts/codeartifact/args.sh "$@")
 IFS=',' read -r -a args <<< "$args"
 domain="${args[0]}";repository="${args[1]}"
 

@@ -21,9 +21,9 @@ isort = "^5.11.2"
 sphinx = "5.3.0"
 myst-parser = "^0.18.1"
 sphinx-rtd-theme = "^1.1.1"
-python-semantic-release = "^7.33.0"
 mypy = "^1.4.1"
 poethepoet = "^0.21.1"
+python-semantic-release = "^8.0.7"
 
 [tool.poe.tasks]
 # Tasks that modify source code if necessary.
@@ -71,13 +71,8 @@ source = ["python_template"]
 fail_under = 100
 
 [tool.semantic_release]
-branch = "master"
-hvcs = "github"
-version_toml = "pyproject.toml:tool.poetry.version"
-build_command = "poetry build"
-upload_to_repository = false
-upload_to_release = true
 commit_author = "github-actions <action@github.com>"
+version_toml = ["pyproject.toml:tool.poetry.version"]
 
 [[tool.poetry.source]]
 name = "antipodestudios"

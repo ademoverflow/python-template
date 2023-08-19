@@ -1,0 +1,31 @@
+name: Master Branch Validator Workflow
+description: Runs code quality checkers and tests to validate a pull request.
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  validators:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v5
+      - name: update-docker-compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+      - name: generate-aws-credentials-from-secrets
+        run: |
+          mkdir -p ${HOME}/.aws
+          echo "${{ secrets.AWS_CREDENTIALS }}" > ${HOME}/.aws/credentials
+      - name: build
+        run: make build
+      - name: run-code-quality-checkers
+        run: make code-quality
+      - name: run-unit-tests
+        run: make unit-tests
+      - name: run-integration-tests
+        run: make integration-tests
