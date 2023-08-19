@@ -27,13 +27,13 @@ build: generate-env ## Build docker image.
 	${COMPOSE} build ${PACKAGE_NAME}
 .PHONY: build
 
-next-release: ## Generate next release and publish it to GitHub Releases.
+next-version: ## Compute next package version and update codebase.
 	${COMPOSE} run -e GH_TOKEN=${GH_TOKEN} --rm ${PACKAGE_NAME} bash -c "scripts/next-version.sh"
-.PHONY: next-release
+.PHONY: next-version
 
 publish-version: ## Publish package
-	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish.sh"
-.PHONY: next-release
+	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-version.sh"
+.PHONY: publish-version
 
 endif
 
