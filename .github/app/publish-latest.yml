@@ -1,16 +1,13 @@
-name: next-release-workflow
+name: Publish Latest Image
+description: Publish latest image of python-template to AWS Registry.
 
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
-  commits-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v5
-  publish-next-release:
+  publish-latest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,13 +17,11 @@ jobs:
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
-      - name: Generate AWS credentials from secrets
+      - name: generate-aws-credentials-from-secrets
         run: |
           mkdir -p ${HOME}/.aws
           echo "${{ secrets.AWS_CREDENTIALS }}" > ${HOME}/.aws/credentials
-      - name: BUILD
-        run: make build-development
-      - name: PUBLISH NEXT RELEASE
-        run: make next-release
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: build-production-target
+        run: make build-production
+      - name: publish-latest-image
+        run: make publish-latest
