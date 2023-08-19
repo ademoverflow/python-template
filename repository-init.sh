@@ -9,6 +9,7 @@ function prepare_package {
 
   # GitHub Actions
   mkdir -p .github/workflows
+  rm .github/workflows/template-*.yml
   mv .github/package/* .github/workflows/
   rmdir .github/package
   rm -rf .github/app
@@ -44,6 +45,7 @@ function prepare_application {
   
   # GitHub Actions
   mkdir -p .github/workflows
+  rm .github/workflows/template-*.yml
   mv .github/app/* .github/workflows/
   rmdir .github/app
   rm -rf .github/package
