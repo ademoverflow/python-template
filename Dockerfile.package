@@ -1,7 +1,7 @@
 # -- Python version
 ARG PYTHON_VERSION=3.10
 
-FROM python:${PYTHON_VERSION}-slim AS base
+FROM python:${PYTHON_VERSION}-slim
 
 # -- Code Artifact parameters
 ARG CODEARTIFACT_DOMAIN=antipodestudios

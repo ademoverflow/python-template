@@ -2,12 +2,11 @@ version: '3'
 
 services:
   python-template:
-    image: python-template:development
+    image: python-template
     hostname: python-template
     build:
       context: .
       dockerfile: Dockerfile
-      target: development
       secrets:
         - aws
       args:
