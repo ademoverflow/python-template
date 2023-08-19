@@ -24,6 +24,8 @@ jobs:
             docker build --secret id=aws,src=$HOME/.aws/credentials --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g) -t python-template -f Dockerfile.package .
       - name: publish-next-release
         run: |
-            docker-compose -f docker-compose.package.yml run --rm -e GH_TOKEN=${GH_TOKEN} python-template bash -c "scripts/package/next-version.sh"
+            ls -al
+            # docker-compose -f docker-compose.package.yml run --rm -e GH_TOKEN=${GH_TOKEN} python-template bash -c "scripts/package/next-version.sh"
+            docker-compose -f docker-compose.package.yml run --rm -e GH_TOKEN=${GH_TOKEN} python-template ls -al
         env:
           GH_TOKEN: ${{ github.token }}
