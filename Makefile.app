@@ -35,9 +35,17 @@ build-lambda: generate-env ## Build lambda docker image.
 	${COMPOSE} -f docker-compose.lambda.yml build ${PACKAGE_NAME}
 .PHONY: build-lambda
 
-next-release: ## Generate next release and publish it to GitHub Releases.
-	${COMPOSE} -f docker-compose.dev.yml run -e GH_TOKEN=${GH_TOKEN} --rm ${PACKAGE_NAME} bash -c "scripts/next-release.sh"
-.PHONY: next-release
+next-version: ## Compute next version and update codebase.
+	${COMPOSE} -f docker-compose.dev.yml run -e GH_TOKEN=${GH_TOKEN} --rm ${PACKAGE_NAME} bash -c "scripts/next-version.sh"
+.PHONY: next-version
+
+publish-latest: ## Publish latest application docker image.
+	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-latest.sh"
+.PHONY: publish-latest
+
+publish-version: ## Publish latest version application docker image.
+	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-version.sh"
+.PHONY: publish-version
 
 endif
 
