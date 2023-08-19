@@ -7,7 +7,7 @@ on:
       - 'v*'
 
 jobs:
-  compute-next-version
+  compute-next-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
