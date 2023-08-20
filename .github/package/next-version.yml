@@ -23,5 +23,5 @@ jobs:
         run: make next-version
         env:
           GH_TOKEN: ${{ github.token }}
-      - name: publish-versioned-package
-        run: make publish-versioned-package
+      - name: publish-versioned
+        run: make publish-versioned
