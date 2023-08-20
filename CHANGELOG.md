@@ -2,6 +2,15 @@
 
 
 
+## v1.11.2 (2023-08-20)
+
+### Fix
+
+* fix: rename package publish-versioned.sh rule and script ([`08c1d98`](https://github.com/antipodestudios/python-template/commit/08c1d981d414eb1ff493d18423df3cca0dd90bac))
+
+* fix: unify next-version and publish ([`352d4f3`](https://github.com/antipodestudios/python-template/commit/352d4f35b643a09e78eedc79cf9fc74e1a5c0ca0))
+
+
 ## v1.11.1 (2023-08-20)
 
 ### Ci
