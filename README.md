@@ -17,4 +17,4 @@ This repository is a template.
 
 To use this template, just create your github repository and select this template.
 
-Once you've created it, launch the script [repo-init.sh](./scripts/repo-init.sh) to clean the repository.
+Once you've created it, launch the script [repository-init.sh](./repository-init.sh) to clean the repository.
