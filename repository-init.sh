@@ -152,5 +152,5 @@ EOL
 rm -f ./repository-init.sh
 
 # -- Commit all the changes
-# git add --all
-# git commit -m "chore: cleanup for template"
+git add --all
+git commit -m "chore: cleanup for template"
