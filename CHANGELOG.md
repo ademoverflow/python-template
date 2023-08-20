@@ -2,6 +2,13 @@
 
 
 
+## v1.11.4 (2023-08-20)
+
+### Fix
+
+* fix: rename package template ([`91581f6`](https://github.com/antipodestudios/python-template/commit/91581f6018af07599cec31515eb95f30e4573bf3))
+
+
 ## v1.11.3 (2023-08-20)
 
 ### Fix
