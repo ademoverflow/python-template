@@ -2,6 +2,13 @@
 
 
 
+## v1.11.3 (2023-08-20)
+
+### Fix
+
+* fix: backport missing config for application template ([`f26f896`](https://github.com/antipodestudios/python-template/commit/f26f89693366ad7b10531447337ce89a6cc20af3))
+
+
 ## v1.11.2 (2023-08-20)
 
 ### Fix
