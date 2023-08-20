@@ -1,5 +1,4 @@
 name: Publish Latest Image
-description: Publish latest image of python-template to AWS Registry.
 
 on:
   push:

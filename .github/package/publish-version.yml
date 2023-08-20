@@ -1,5 +1,4 @@
 name: Publish Latest Known Version
-description: Publish latest known version of python-template to AWS CodeArtifact.
 
 on:
   push:

@@ -1,5 +1,4 @@
 name: Master Branch Validator Workflow
-description: Runs code quality checkers and tests to validate a pull request.
 
 on:
   pull_request:

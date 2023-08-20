@@ -1,5 +1,4 @@
 name: Compute Next Version Workflow
-description: Compute next version based on commit messages (conventional commit + semantic versioning).
 
 on: [workflow_dispatch]
 
