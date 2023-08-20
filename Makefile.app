@@ -43,9 +43,9 @@ publish-latest: ## Publish latest application docker image.
 	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-latest.sh"
 .PHONY: publish-latest
 
-publish-version: ## Publish latest version application docker image.
-	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-version.sh"
-.PHONY: publish-version
+publish-versioned: ## Publish versioned application docker image.
+	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-versioned.sh"
+.PHONY: publish-versioned
 
 endif
 

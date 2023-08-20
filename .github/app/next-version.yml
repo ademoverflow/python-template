@@ -1,9 +1,9 @@
-name: Compute Next Version Workflow
+name: Compute Next Version Workflow And Publish To AWS ECR
 
 on: [workflow_dispatch]
 
 jobs:
-  compute-next-version:
+  compute-next-version-and-publish-application:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,3 +23,5 @@ jobs:
         run: make next-version
         env:
           GH_TOKEN: ${{ github.token }}
+      - name: publish-versioned
+        run: make publish-versioned
