@@ -2,6 +2,23 @@
 
 
 
+## v1.11.1 (2023-08-20)
+
+### Ci
+
+* ci: unify next-version and publish package ([`b75221e`](https://github.com/antipodestudios/python-template/commit/b75221ea786a604802b15595ef60a7463be67a7c))
+
+### Fix
+
+* fix: remove breaking mypy configuration ([`75cd350`](https://github.com/antipodestudios/python-template/commit/75cd350a0a305527751a4f796c4621e032e083c8))
+
+* fix: remove description for GH Actions ([`51e2a79`](https://github.com/antipodestudios/python-template/commit/51e2a79581628a505247b1119a86839ea712609f))
+
+* fix: uncomment git commits at the end of init script ([`78ca36b`](https://github.com/antipodestudios/python-template/commit/78ca36b894d47cbc88be47023b8ff2d01ba87fdf))
+
+* fix: correct repository-init.sh in readme ([`e214634`](https://github.com/antipodestudios/python-template/commit/e214634e44eb900a7c2e5156ad8b4560c6cd482c))
+
+
 ## v1.11.0 (2023-08-20)
 
 ### Ci
