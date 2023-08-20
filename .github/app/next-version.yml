@@ -23,5 +23,13 @@ jobs:
         run: make next-version
         env:
           GH_TOKEN: ${{ github.token }}
+      - name: install-aws-cli
+        run: |
+          sudo apt-get update 
+          sudo apt-get install -y awscli
+      - name: build-production-target
+        run: make build-production
+      - name: build-lambda-target
+        run: make build-lambda
       - name: publish-versioned
         run: make publish-versioned

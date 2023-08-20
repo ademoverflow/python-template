@@ -40,11 +40,11 @@ next-version: ## Compute next version and update codebase.
 .PHONY: next-version
 
 publish-latest: ## Publish latest application docker image.
-	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-latest.sh"
+	./scripts/publish.sh --tag latest
 .PHONY: publish-latest
 
 publish-versioned: ## Publish versioned application docker image.
-	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-versioned.sh"
+	./scripts/publish.sh --tag git
 .PHONY: publish-versioned
 
 endif

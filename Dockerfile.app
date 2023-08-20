@@ -84,7 +84,7 @@ RUN cp /etc/skel/.bashrc ~/.bashrc
 COPY --chown=${USERNAME}:${GROUP_NAME} . ${CODE_DIR}/
 
 # -- Install all dependencies including code source
-RUN --mount=type=secret,id=aws,target=${HOME_DIR}/.aws/credentials,uid=${USER_UID},gid=${USER_GID} bash scripts/poetry-codeartifact-token.sh \
+RUN --mount=type=secret,id=aws,target=${HOME_DIR}/.aws/credentials,uid=${USER_UID},gid=${USER_GID} bash scripts/codeartifact/configure-poetry.sh \
     --domain ${CODEARTIFACT_DOMAIN} \
     --repository ${CODEARTIFACT_REPOSITORY}
 RUN poetry install

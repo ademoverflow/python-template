@@ -22,5 +22,11 @@ jobs:
           echo "${{ secrets.AWS_CREDENTIALS }}" > ${HOME}/.aws/credentials
       - name: build-production-target
         run: make build-production
+      - name: build-lambda-target
+        run: make build-lambda
+      - name: install-aws-cli
+        run: |
+          sudo apt-get update 
+          sudo apt-get install -y awscli
       - name: publish-latest-image
         run: make publish-latest
