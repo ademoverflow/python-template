@@ -31,9 +31,9 @@ next-version: ## Compute next package version and update codebase.
 	${COMPOSE} run -e GH_TOKEN=${GH_TOKEN} --rm ${PACKAGE_NAME} bash -c "scripts/next-version.sh"
 .PHONY: next-version
 
-publish-version: ## Publish package
-	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-version.sh"
-.PHONY: publish-version
+publish-versioned-package: ## Publish versioned package
+	${COMPOSE} run --rm ${PACKAGE_NAME} bash -c "scripts/publish-versioned-package.sh"
+.PHONY: publish-versioned-package
 
 endif
 
