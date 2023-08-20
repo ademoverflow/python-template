@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PACKAGE_NAME=dummy-app
+PACKAGE_NAME=python-template
 ECR_REPOSITORY=822030640566.dkr.ecr.eu-west-1.amazonaws.com
 IMAGE_ECR_ENDPOINT=${ECR_REPOSITORY}/${PACKAGE_NAME}
 
