@@ -16,6 +16,8 @@ It contains the adequate tooling for:
 
 All the configuration for these tools are located directly in `pyproject.toml`, you don't need dot files for this (awesome, isn't it ? :fire:)
 
+It provides to you the right tooling to generate `production` and `lambda` ready docker images.
+
 ## Project organization
 
 Let's see what's inside each folder:
@@ -137,3 +139,5 @@ For workflows to work properly, you need to give some access to Actions:
 As we need to have our AWS credentials stored on our machine for local development, GitHub runners also need this credentials file. You need to create a secret on GitHub, named `AWS_CREDENTIALS`. The content of this secret must be the complete credentials file, as you have on your machine.
 
 You should use a dedicated AWS user for the CI, to restrict its permissions in case of a leak.
+
+GitHub Action need `AWS_CREDENTIALS` to install private python packages, and also to push docker images on AWS ECR.
