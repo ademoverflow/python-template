@@ -98,7 +98,7 @@ echo "Project name will be ${project_name}"
 files=$(find . -type f -not -path './.git/*' -exec grep -l "python-template" {} \;)
 for file in $files
 do
-    if [[ $file == *"repo-init.sh"* ]]; then
+    if [[ $file == *"repository-init.sh"* ]]; then
         continue
     fi
     sed -i "s/python-template/${project_name}/g" $file
@@ -109,7 +109,7 @@ read -p "Provide a simple description: " user_description
 files=$(find .  -type f -not -path './.venv/*' -not -path './.git/*' -exec grep -l "description-here" {} \;)
 for file in $files
 do
-    if [[ $file == *"repo-init.sh"* ]]; then
+    if [[ $file == *"repository-init.sh"* ]]; then
         continue
     fi
     sed -i "s/description-here/${user_description}/g" $file
@@ -120,7 +120,7 @@ package_name=$(echo "$project_name" | sed 's/-/_/g')
 files=$(find . -type f -not -path './.git/*' -exec grep -l "python_template" {} \;)
 for file in $files
 do
-    if [[ $file == *"repo-init.sh"* ]]; then
+    if [[ $file == *"repository-init.sh"* ]]; then
         continue
     fi
     sed -i "s/python_template/${package_name}/g" $file

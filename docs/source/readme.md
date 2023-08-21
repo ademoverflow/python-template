@@ -104,10 +104,10 @@ This repository is a template.
 
 To use this template:
 
-- Clone it and launch `repo-init.sh` script:
+- Clone it and launch `repository-init.sh` script:
 
 ```bash
-git clone "ssh://<username>@gerrit.antipodestudios.lan:29418/antipodestudios/python-template" <my_awesome_app> && cd <my_awesome_app> && ./scripts/repo-init.sh
+git clone "ssh://<username>@gerrit.antipodestudios.lan:29418/antipodestudios/python-template" <my_awesome_app> && cd <my_awesome_app> && ./scripts/repository-init.sh
 ```
 
 Replace `<username>` by your gerrit name and <my_awesome_app> with the name of your brand new service / library.
