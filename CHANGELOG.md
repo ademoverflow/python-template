@@ -2,6 +2,17 @@
 
 
 
+## v1.11.5 (2023-08-21)
+
+### Documentation
+
+* docs: add small sentence about aws registry ([`5204a6e`](https://github.com/antipodestudios/python-template/commit/5204a6ef497ab31f07e97075bb04a8a7694f0b60))
+
+### Fix
+
+* fix: rename repository-init.sh on codebase also ([`0eb7097`](https://github.com/antipodestudios/python-template/commit/0eb7097e6ddefae79c0abc22e36b491399e93c70))
+
+
 ## v1.11.4 (2023-08-20)
 
 ### Fix
