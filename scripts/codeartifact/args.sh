@@ -2,8 +2,8 @@
 
 set -e
 
-domain=${domain:-antipodestudios}
-repository=${repository:-antipodestudios}
+domain=${domain:-ademoverflow}
+repository=${repository:-ademoverflow}
 
 while [ $# -gt 0 ]; do
    if [[ $1 == *"--"* ]]; then

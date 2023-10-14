@@ -3,7 +3,7 @@
 	"initializeCommand": "make generate-env",
 	"dockerComposeFile": "../docker-compose.dev.yml",
 	"service": "python-template",
-	"workspaceFolder": "/home/antipodestudios/code",
+	"workspaceFolder": "/home/worker/code",
 	"overrideCommand": true,
 	"customizations": {
 		"vscode": {

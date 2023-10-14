@@ -68,13 +68,6 @@ integration-tests: ## Run integration tests
 	$(RUN) $(POETRY) run poe integration-tests
 .PHONY: integration-tests
 
-documentation: ## Generate docs in html format (with sphinx)
-	echo "Generating docs ..."
-	rm -f docs/source/python_template*
-	sphinx-apidoc --force --no-headings --separate --maxdepth 1 --output-dir docs/source/ src/python_template
-	cd docs && make clean && make html && cd ..
-.PHONY: documentation
-
 clean: ## Clean all generated files
 	rm -rf .mypy_cache
 	rm -rf .pytest_cache

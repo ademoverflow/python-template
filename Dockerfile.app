@@ -6,8 +6,8 @@
 ARG PYTHON_VERSION=3.10
 
 # -- Code Artifact parameters
-ARG CODEARTIFACT_DOMAIN=antipodestudios
-ARG CODEARTIFACT_REPOSITORY=antipodestudios
+ARG CODEARTIFACT_DOMAIN=ademoverflow
+ARG CODEARTIFACT_REPOSITORY=ademoverflow
 
 # ---------------------------------------- #
 # -------------- Base target ------------- #
@@ -26,8 +26,8 @@ ENV INSIDE_CONTAINER=1
 ENV PYTHONUNBUFFERED=true
 
 # -- Create a non-root user
-ENV USERNAME=antipodestudios
-ENV GROUP_NAME=antipodestudios
+ENV USERNAME=worker
+ENV GROUP_NAME=worker
 
 # -- Define home and code directory
 ENV HOME_DIR=/home/${USERNAME}
@@ -103,7 +103,6 @@ CMD poetry run python -m python_template 2>&1 | tee ${CODE_DIR}/server.log
 # Content:
 # - Install git (to be able to fetch private repositories)
 # - Install dependencies
-# - Install antipode-logging
 
 FROM base AS production
 

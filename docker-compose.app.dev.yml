@@ -11,9 +11,9 @@ services:
       secrets:
         - aws
     volumes:
-      - ./:/home/antipodestudios/code
-      - ${HOME}/.aws:/home/antipodestudios/.aws:ro
-      - /home/antipodestudios/code/.venv
+      - ./:/home/worker/code
+      - ${HOME}/.aws:/home/worker/.aws:ro
+      - /home/worker/code/.venv
 
 secrets:
   aws:

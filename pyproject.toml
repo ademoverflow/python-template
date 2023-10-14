@@ -3,12 +3,11 @@ name = "python-template"
 version = "1.11.5"
 description = "description-here"
 readme = "README.md"
-authors = ["Adem Usta <adem@antipodestudios.io>"]
+authors = ["Adem Usta <me@ademvoverflow.com>"]
 packages = [{ include = "python_template", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
-antipode-logging = {version = "^0.3.2", source = "antipodestudios"}
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.15.4"
@@ -75,8 +74,8 @@ commit_author = "github-actions <action@github.com>"
 version_toml = ["pyproject.toml:tool.poetry.version"]
 
 [[tool.poetry.source]]
-name = "antipodestudios"
-url = "https://antipodestudios-822030640566.d.codeartifact.eu-west-1.amazonaws.com/pypi/antipodestudios/simple"
+name = "ademoverflow"
+url = "https://ademoverflow-983334756594.d.codeartifact.eu-west-1.amazonaws.com/pypi/ademoverflow/simple"
 priority = "explicit"
 
 [build-system]

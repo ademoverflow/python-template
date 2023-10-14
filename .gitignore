@@ -4,7 +4,5 @@ __pycache__
 .mypy_cache
 .coverage
 .env
-docs/build
-docs/source/python_template*
 dist/
 server.log

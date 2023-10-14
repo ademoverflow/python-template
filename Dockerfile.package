@@ -4,12 +4,12 @@ ARG PYTHON_VERSION=3.10
 FROM python:${PYTHON_VERSION}-slim
 
 # -- Code Artifact parameters
-ARG CODEARTIFACT_DOMAIN=antipodestudios
-ARG CODEARTIFACT_REPOSITORY=antipodestudios
+ARG CODEARTIFACT_DOMAIN=ademoverflow
+ARG CODEARTIFACT_REPOSITORY=ademoverflow
 
 # -- Non root user
-ARG USERNAME=antipodestudios
-ARG GROUP_NAME=antipodestudios
+ARG USERNAME=worker
+ARG GROUP_NAME=worker
 
 # -- Retrieve UID and GID from build args
 ARG USER_UID

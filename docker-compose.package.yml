@@ -13,9 +13,9 @@ services:
         USER_UID: ${USER_UID}
         USER_GID: ${USER_GID}
     volumes:
-      - ./:/home/antipodestudios/code
-      - ${HOME}/.aws:/home/antipodestudios/.aws:ro
-      - /home/antipodestudios/code/.venv
+      - ./:/home/worker/code
+      - ${HOME}/.aws:/home/worker/.aws:ro
+      - /home/worker/code/.venv
 
 secrets:
   aws:
