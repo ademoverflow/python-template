@@ -2,6 +2,13 @@
 
 
 
+## v1.12.0 (2023-10-14)
+
+### Feature
+
+* feat: do not use package for template versioning ([`ba3dd18`](https://github.com/ademoverflow/python-template/commit/ba3dd186e4ef5f61d9f965c26d15014f4ac44188))
+
+
 ## v1.11.6 (2023-10-14)
 
 ### Fix
