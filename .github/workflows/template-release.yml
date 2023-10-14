@@ -10,19 +10,9 @@ jobs:
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v5
-      - name: update-docker-compose
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-      - name: generate-aws-credentials-from-secrets
-        run: |
-          mkdir -p ${HOME}/.aws
-          echo "${{ secrets.AWS_CREDENTIALS }}" > ${HOME}/.aws/credentials
-      - name: build
-        run: |
-            docker build --secret id=aws,src=$HOME/.aws/credentials --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g) -t python-template -f Dockerfile.package .
       - name: publish-next-release
         run: |
-            docker-compose -f docker-compose.package.yml run --rm -e GH_TOKEN=${GH_TOKEN} python-template bash -c "scripts/package/next-version.sh"
+            pip install python-semantic-release
+            semantic-release version --no-vcs-release --skip-build
         env:
           GH_TOKEN: ${{ github.token }}
