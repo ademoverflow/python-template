@@ -2,6 +2,13 @@
 
 
 
+## v1.11.6 (2023-10-14)
+
+### Fix
+
+* fix: cleaning ([`d180ce8`](https://github.com/ademoverflow/python-template/commit/d180ce8726546b1611d6455cbd1400c24f7b753c))
+
+
 ## v1.11.5 (2023-08-21)
 
 ### Documentation
@@ -42,21 +49,6 @@
 
 * ci: unify next-version and publish package ([`b75221e`](https://github.com/ademoverflow/python-template/commit/b75221ea786a604802b15595ef60a7463be67a7c))
 
-### Fix
-
-* fix: remove breaking mypy configuration ([`75cd350`](https://github.com/ademoverflow/python-template/commit/75cd350a0a305527751a4f796c4621e032e083c8))
-
-* fix: remove description for GH Actions ([`51e2a79`](https://github.com/ademoverflow/python-template/commit/51e2a79581628a505247b1119a86839ea712609f))
-
-* fix: uncomment git commits at the end of init script ([`78ca36b`](https://github.com/ademoverflow/python-template/commit/78ca36b894d47cbc88be47023b8ff2d01ba87fdf))
-
-* fix: correct repository-init.sh in readme ([`e214634`](https://github.com/ademoverflow/python-template/commit/e214634e44eb900a7c2e5156ad8b4560c6cd482c))
-
-
-## v1.11.0 (2023-08-20)
-
-### Ci
-
 * ci: add commit-lint job to release job ([`711eeb0`](https://github.com/ademoverflow/python-template/commit/711eeb0ea06b7583b41b87546c6d8607fccebaf9))
 
 ### Documentation
@@ -74,6 +66,14 @@
 * feat: prepare files for package template ([`65d7063`](https://github.com/ademoverflow/python-template/commit/65d7063d544b4721463d3e3756a4b1b02bcb27ba))
 
 ### Fix
+
+* fix: remove breaking mypy configuration ([`75cd350`](https://github.com/ademoverflow/python-template/commit/75cd350a0a305527751a4f796c4621e032e083c8))
+
+* fix: remove description for GH Actions ([`51e2a79`](https://github.com/ademoverflow/python-template/commit/51e2a79581628a505247b1119a86839ea712609f))
+
+* fix: uncomment git commits at the end of init script ([`78ca36b`](https://github.com/ademoverflow/python-template/commit/78ca36b894d47cbc88be47023b8ff2d01ba87fdf))
+
+* fix: correct repository-init.sh in readme ([`e214634`](https://github.com/ademoverflow/python-template/commit/e214634e44eb900a7c2e5156ad8b4560c6cd482c))
 
 * fix: remove double checkout in gh action ([`46e63b4`](https://github.com/ademoverflow/python-template/commit/46e63b459af91b1fdc37a1dbf856bede425066aa))
 
