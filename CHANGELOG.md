@@ -2,6 +2,17 @@
 
 
 
+## v1.13.0 (2023-10-15)
+
+### Feature
+
+* feat: add py.typed for mypy ([`2c54a41`](https://github.com/ademoverflow/python-template/commit/2c54a410a6655ebe17d1fd8c356e44849c39b60f))
+
+### Fix
+
+* fix: enhance mypy settings ([`2497ba5`](https://github.com/ademoverflow/python-template/commit/2497ba5f20d78b43107805b3bcdd0f7fddfb7c2b))
+
+
 ## v1.12.0 (2023-10-14)
 
 ### Feature
