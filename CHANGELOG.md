@@ -2,6 +2,13 @@
 
 
 
+## v1.13.1 (2023-10-15)
+
+### Fix
+
+* fix: add missing poetry.lock file ([`f2e2ebf`](https://github.com/ademoverflow/python-template/commit/f2e2ebffabeb1d225270790d8532eba9d113d29e))
+
+
 ## v1.13.0 (2023-10-15)
 
 ### Feature
